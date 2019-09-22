@@ -18,7 +18,7 @@
         <asp:HyperLink ID="linkAddArea" runat="server" NavigateUrl="~/AddArea.aspx">ADD AREA</asp:HyperLink>
         <asp:HyperLink ID="linkAddCab" runat="server" NavigateUrl="~/AddCab.aspx">ADD CAB</asp:HyperLink>
         <asp:HyperLink ID="linkAddDriver" runat="server" NavigateUrl="~/AddDriver.aspx">ADD DRIVER</asp:HyperLink>
-        <asp:HyperLink ID="linkFarecharge" runat="server" NavigateUrl="~/Farecharges.aspx">FARECHARGES</asp:HyperLink>
+        <asp:HyperLink ID="linkAddCharges" runat="server" NavigateUrl="~/AddCharges.aspx">ADD CHARGES</asp:HyperLink>
         <asp:HyperLink ID="linkViewBill" runat="server" NavigateUrl="~/ViewBill.aspx">VIEW BILL</asp:HyperLink>
         <asp:HyperLink ID="linkSignOut" runat="server" NavigateUrl="~/SignInMain.aspx">SIGN-OUT</asp:HyperLink>
     </div>

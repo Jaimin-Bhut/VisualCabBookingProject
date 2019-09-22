@@ -11,10 +11,10 @@ using System.Configuration;
 
 public partial class BookCabPage : System.Web.UI.Page
 {
-//    protected void Page_PreInit(object sender, EventArgs e)
-//    {
-//        this.MasterPageFile = "~/MasterPage1.master";
-//    }
+    //    protected void Page_PreInit(object sender, EventArgs e)
+    //    {
+    //        this.MasterPageFile = "~/MasterPage1.master";
+    //    }
     void cab()
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
@@ -42,7 +42,6 @@ public partial class BookCabPage : System.Web.UI.Page
             ddlCity.DataTextField = "City";
             ddlCity.DataValueField = "Id";
             ddlCity.DataBind();
-            lblSCity.Text = ddlCity.SelectedItem.ToString();
         }
     }
     protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,7 +56,6 @@ public partial class BookCabPage : System.Web.UI.Page
         ddlPickUp.DataTextField = "Area";
         ddlPickUp.DataValueField = "Id";
         ddlPickUp.DataBind();
-        lblSpickup.Text = ddlPickUp.SelectedItem.ToString();
         cab();
     }
     protected void ddlCabType_SelectedIndexChanged(object sender, EventArgs e)
@@ -77,5 +75,23 @@ public partial class BookCabPage : System.Web.UI.Page
         ddlDrop.DataTextField = "Area";
         ddlDrop.DataValueField = "Id";
         ddlDrop.DataBind();
+    }
+    protected void btnDone_Click(object sender, EventArgs e)
+    {
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+        con.Open();
+        SqlCommand cmd = new SqlCommand("select count(*) from tblCharges where From ='" + ddlPickUp.SelectedValue.ToString() + "' and To ='" + ddlDrop.SelectedValue.ToString() + "'", con);
+
+        int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
+        if (c1 == 1)
+        {
+            MessageBox.Show("Found");
+        }
+        else
+        {
+            MessageBox.Show("Not Found");
+
+        }
+        con.Close();
     }
 }
