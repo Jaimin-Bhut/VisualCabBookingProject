@@ -1,0 +1,41 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    background-image: url(http://localhost:16826/Jaimin/photo/back1.jpg);
+    background-size: cover;
+    height: 500px;
+    text-align: center;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-box {
+    width: auto;
+    height: auto;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    background: #191919;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.img {
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    border-radius: 50%;
+}
+
+    .img:hover {
+        background-color: #ffd800;
+        color: white;
+    }
