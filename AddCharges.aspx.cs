@@ -59,7 +59,7 @@ public partial class AddCharges : System.Web.UI.Page
     void disp()
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        SqlCommand cmd = new SqlCommand("select * from tblCharges", con);
+        SqlCommand cmd = new SqlCommand("Select City,c.Id,Distance,Pick_up,Area,DropArea from tblArea a,tblCharges ch,tblCity c where a.City_id=c.Id and a.Id=ch.Pick_up", con);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataTable dt1 = new DataTable();
         da.Fill(dt1);
@@ -100,9 +100,9 @@ public partial class AddCharges : System.Web.UI.Page
         DropDownList updateFrom = gvData.Rows[e.RowIndex].FindControl("gvddlFrom") as DropDownList;
         DropDownList updateTo = gvData.Rows[e.RowIndex].FindControl("gvddlTo") as DropDownList;
         TextBox updateDistace = gvData.Rows[e.RowIndex].FindControl("gvtxtDistance") as TextBox;
-        TextBox updatePrice = gvData.Rows[e.RowIndex].FindControl("gvtxtPrice") as TextBox;
+        //TextBox updatePrice = gvData.Rows[e.RowIndex].FindControl("gvtxtPrice") as TextBox;
         con.Open();
-        SqlCommand cmd = new SqlCommand("update tblCharges set City_id=" + updateCity.SelectedValue + ",From='" + updateFrom.SelectedValue + "',To ='" + updateTo.SelectedValue + "',Distance ='" + updateDistace.Text + "',Price='" + updatePrice.Text + "' where Id=" + UpdateId, con);
+        SqlCommand cmd = new SqlCommand("update tblCharges set City_id=" + updateCity.SelectedValue + ",From='" + updateFrom.SelectedValue + "',To ='" + updateTo.SelectedValue + "',Distance ='" + updateDistace.Text + "' where Id=" + UpdateId, con);
         Response.Write(cmd.CommandText);
         cmd.ExecuteNonQuery();
         disp();
@@ -115,12 +115,12 @@ public partial class AddCharges : System.Web.UI.Page
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
-            SqlCommand cmd = new SqlCommand("insert into tblCharges values(@city,@from,@to,@distance,@price)", con);
+            SqlCommand cmd = new SqlCommand("insert into tblCharges values(@city,@from,@to,@distance)", con);
             cmd.Parameters.Add("@city", SqlDbType.Int).Value = ddlCity.SelectedValue.ToString();
             cmd.Parameters.Add("@from", SqlDbType.Int).Value = ddlFrom.SelectedValue.ToString();
             cmd.Parameters.Add("@to", SqlDbType.Int).Value = ddlTo.SelectedValue.ToString();
             cmd.Parameters.Add("@distance", SqlDbType.Int).Value = txtDistance.Text.Trim();
-            cmd.Parameters.Add("@price", SqlDbType.Int).Value = txtPrice.Text.Trim();
+            //cmd.Parameters.Add("@price", SqlDbType.Int).Value = txtPrice.Text.Trim();
             cmd.ExecuteNonQuery();
             disp();
         }

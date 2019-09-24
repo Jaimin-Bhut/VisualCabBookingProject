@@ -1,0 +1,1 @@
+Select City,c.Id,Distance,Pick_up,Area from tblArea a,tblCharges ch,tblCity c where a.City_id=c.Id and a.Id=ch.Pick_up;

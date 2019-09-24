@@ -48,7 +48,7 @@
                     </asp:RequiredFieldValidator>
                 </td>
             </tr>
-            <tr>
+            <%--<tr>
                 <td>
                     <asp:Label ID="lblPrice" runat="server" Text="Price"></asp:Label>
                 </td>
@@ -61,7 +61,7 @@
                         ErrorMessage="Enter Price">
                     </asp:RequiredFieldValidator>
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td>
                     <asp:Button ID="btnDone" runat="server" ValidationGroup="aa" OnClientClick="return confirm('sure?');" Text="Done" OnClick="btnDone_Click" />
@@ -78,7 +78,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="City" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="gvlblCity" runat="server" Text='<%# Eval("City_id") %>'></asp:Label>
+                        <asp:Label ID="gvlblCity" runat="server" Text='<%# Eval("City") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="gvddlCity" runat="server" OnSelectedIndexChanged="gvddlCity_SelectedIndexChanged"></asp:DropDownList>
@@ -91,7 +91,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="From" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="gvlblFrom" runat="server" Text='<%# Eval("From") %>'></asp:Label>
+                        <asp:Label ID="gvlblFrom" runat="server" Text='<%# Eval("Area") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="gvddlFrom" runat="server"></asp:DropDownList>
@@ -104,7 +104,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="To" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="gvlblTo" runat="server" Text='<%# Eval("To") %>'></asp:Label>
+                        <asp:Label ID="gvlblTo" runat="server" Text='<%# Eval("Area") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="gvddlTo" runat="server"></asp:DropDownList>
@@ -130,7 +130,7 @@
                         </asp:RequiredFieldValidator>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Price" ControlStyle-Font-Size="Smaller">
+                <%--<asp:TemplateField HeaderText="Price" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
                         <asp:Label ID="gvlblPrice" runat="server" Text='<%# Eval("Price") %>'></asp:Label>
                     </ItemTemplate>
@@ -143,7 +143,7 @@
                             ErrorMessage="Enter Price">
                         </asp:RequiredFieldValidator>
                     </EditItemTemplate>
-                </asp:TemplateField>
+                </asp:TemplateField>--%>
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:ImageButton ID="ImageButton1" ValidationGroup="bb" runat="server" ImageUrl="~/icon/edit_icon.png" BackColor="White" CommandName="Edit" ToolTip="Edit" Height="16px" Width="16px"></asp:ImageButton>
