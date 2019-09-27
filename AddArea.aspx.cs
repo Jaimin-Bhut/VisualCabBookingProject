@@ -30,6 +30,9 @@ public partial class AddArea : System.Web.UI.Page
             ddlState.DataTextField = "State";
             ddlState.DataValueField = "Id";
             ddlState.DataBind();
+            ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
+            ddlState.Items[0].Selected = true;
+            ddlState.Items[0].Attributes["disabled"] = "disabled";
             disp();
         }
     }
@@ -56,6 +59,9 @@ public partial class AddArea : System.Web.UI.Page
         ddlCity.DataTextField = "City";
         ddlCity.DataValueField = "Id";
         ddlCity.DataBind();
+        ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+        ddlCity.Items[0].Selected = true;
+        ddlCity.Items[0].Attributes["disabled"] = "disabled";
         disp();
 
     }

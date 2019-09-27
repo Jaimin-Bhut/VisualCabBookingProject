@@ -49,6 +49,7 @@ public partial class AddCity : System.Web.UI.Page
             ddlState.DataTextField = "State";
             ddlState.DataValueField = "Id";
             ddlState.DataBind();
+            ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
             disp();
         }
     }

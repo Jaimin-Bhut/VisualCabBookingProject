@@ -3,7 +3,7 @@
     padding: 0;
     height: 500px;
     color:white;
-    background-image: url(http://localhost:3183/VisualCabBookingProject/photo/back1.jpg);
+    background-image: url(../photo/back1.jpg);
     background-size: cover;
     -o-background-size: cover;
     -moz-background-size: cover;

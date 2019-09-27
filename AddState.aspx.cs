@@ -44,7 +44,6 @@ public partial class AddLocatality : System.Web.UI.Page
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
             SqlCommand cmd = new SqlCommand("select count(*) from tblState where State ='" + txtState.Text + "'", con);
-
             int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
             if (c1 == 1)
             {

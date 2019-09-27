@@ -3,7 +3,7 @@
     padding: 0;
     color:white;
     font-family: 'Century Gothic';
-    background-image: url(http://localhost:3183/VisualCabBookingProject/photo/back1.jpg);
+    background-image: url(../photo/back1.jpg);
     float: right;
     height: 500px;
     background-size: cover;

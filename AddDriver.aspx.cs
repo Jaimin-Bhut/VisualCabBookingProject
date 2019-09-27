@@ -73,11 +73,8 @@ public partial class AddDriver : System.Web.UI.Page
             cmd.Parameters.Add("@demail", SqlDbType.NVarChar).Value = txtEmail.Text;
             cmd.Parameters.Add("@dpass", SqlDbType.NVarChar).Value = txtCPassword.Text;
             cmd.Parameters.Add("@cabid", SqlDbType.NVarChar).Value = ddlCab.SelectedValue.Trim().ToUpper();
-
             cmd.ExecuteNonQuery();
-
             FileUpload1.SaveAs(Server.MapPath("~/photo/") + FileUpload1.FileName);
-
             MessageBox.Show("Record Inserted");
     }
 
