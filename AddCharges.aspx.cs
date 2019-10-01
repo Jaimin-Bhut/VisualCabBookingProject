@@ -59,7 +59,7 @@ public partial class AddCharges : System.Web.UI.Page
     void disp()
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        SqlCommand cmd = new SqlCommand("Select City,c.Id,Distance,Pick_up,Area,DropArea from tblArea a,tblCharges ch,tblCity c where a.City_id=c.Id and a.Id=ch.Pick_up", con);
+        SqlCommand cmd = new SqlCommand("Select City,c.Id,Distance,Pick_up,Area from tblArea a,tblCharges ch,tblCity c where a.City_id=c.Id and a.Id=ch.Pick_up;", con);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataTable dt1 = new DataTable();
         da.Fill(dt1);

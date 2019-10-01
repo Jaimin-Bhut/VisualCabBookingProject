@@ -34,6 +34,8 @@ public partial class AddArea : System.Web.UI.Page
             ddlState.Items[0].Selected = true;
             ddlState.Items[0].Attributes["disabled"] = "disabled";
             disp();
+           
+
         }
     }
     void disp()
@@ -94,6 +96,8 @@ public partial class AddArea : System.Web.UI.Page
             cmd1.ExecuteNonQuery();
             MessageBox.Show("Data inserted Succesfully");
             disp();
+            ddlState.SelectedIndex = 0;
+            ddlCity.SelectedIndex = 0;
         }
         con.Close();
     }
@@ -155,5 +159,26 @@ public partial class AddArea : System.Web.UI.Page
             MessageBox.Show(ex.ToString());
         }
 
+    }
+    protected void eddlState_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+            DropDownList gvddlState = (FindControl("eddlState") as DropDownList);
+            DropDownList gvddlCity = (FindControl("eddlCity") as DropDownList);
+            SqlCommand cmd = new SqlCommand("select * from tblCity Where State_id ='" + gvddlState.SelectedValue.ToString() + "'", con);
+            SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            Adpt.Fill(dt);
+            gvddlCity.DataSource = dt;
+            gvddlCity.DataTextField = "City";
+            gvddlCity.DataValueField = "Id";
+            gvddlCity.DataBind();
+        }
+        catch (Exception ex)
+        {
+            Response.Write(ex);
+        }
     }
 }

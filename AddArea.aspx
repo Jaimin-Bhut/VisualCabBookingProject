@@ -42,7 +42,7 @@
                             <asp:Label ID="lblArea" runat="server" Text="Area Name"></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtArea" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtArea" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rvalidationArea"
                                 ValidationGroup="btnAddArea"
                                 runat="server"
@@ -75,7 +75,7 @@
                                 <asp:Label ID="lblState" runat="server" Text='<%# Eval("State") %>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
-                                <asp:DropDownList runat="server" ID="eddlState" DataSourceID="SqlDataSource" DataTextField="State" DataValueField="Id"></asp:DropDownList>
+                                <asp:DropDownList runat="server" ID="eddlState" AutoPostBack="true" DataSourceID="SqlDataSource" DataTextField="State" DataValueField="Id" OnSelectedIndexChanged="eddlState_SelectedIndexChanged"></asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="gridfieldValidationState"
                                     runat="server"
                                     ControlToValidate="eddlState"
