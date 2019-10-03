@@ -29,6 +29,8 @@ public partial class AddCharges : System.Web.UI.Page
         ddlCity.DataTextField = "City";
         ddlCity.DataValueField = "Id";
         ddlCity.DataBind();
+        ddlCity.Items.Insert(0, new ListItem("--Select State--", "0"));
+
     }
     void area2()
     {
@@ -42,6 +44,8 @@ public partial class AddCharges : System.Web.UI.Page
         ddlTo.DataTextField = "Area";
         ddlTo.DataValueField = "Id";
         ddlTo.DataBind();
+        ddlTo.Items.Insert(0, new ListItem("--Select State--", "0"));
+
     }
     void area()
     {
@@ -55,11 +59,13 @@ public partial class AddCharges : System.Web.UI.Page
         ddlFrom.DataTextField = "Area";
         ddlFrom.DataValueField = "Id";
         ddlFrom.DataBind();
+        ddlFrom.Items.Insert(0, new ListItem("--Select State--", "0"));
+
     }
     void disp()
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        SqlCommand cmd = new SqlCommand("Select City,c.Id,Distance,Pick_up,Area from tblArea a,tblCharges ch,tblCity c where a.City_id=c.Id and a.Id=ch.Pick_up;", con);
+        SqlCommand cmd = new SqlCommand("Select City,c.Id,Distance,Pick_up,aa.Area,DropArea,a.Area from tblArea a,tblCharges ch,tblArea aa,tblCity c where a.City_id=c.Id and a.Id=ch.DropArea and aa.id = ch.Pick_up", con);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataTable dt1 = new DataTable();
         da.Fill(dt1);
@@ -122,7 +128,7 @@ public partial class AddCharges : System.Web.UI.Page
             cmd.Parameters.Add("@distance", SqlDbType.Int).Value = txtDistance.Text.Trim();
             //cmd.Parameters.Add("@price", SqlDbType.Int).Value = txtPrice.Text.Trim();
             cmd.ExecuteNonQuery();
-            disp();
+           disp();
         }
         catch (Exception ex)
         {
@@ -143,9 +149,9 @@ public partial class AddCharges : System.Web.UI.Page
             DropDownList gvddlCity = (e.Row.FindControl("gvddlCity") as DropDownList);
             SqlCommand cmd = new SqlCommand("select * from tblCity", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt1 = new DataTable();
-            da.Fill(dt1);
-            gvddlCity.DataSource = dt1;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            gvddlCity.DataSource = dt;
             gvddlCity.DataValueField = "Id";
             gvddlCity.DataTextField = "City";
             gvddlCity.DataBind();
@@ -177,5 +183,10 @@ public partial class AddCharges : System.Web.UI.Page
         {
             Response.Write(ex);
         }
+    }
+    protected void ddlFrom_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string selectedArea = ddlFrom.SelectedItem.Text;
+        ddlTo.Items.FindByText(selectedArea).Enabled = false;
     }
 }

@@ -37,7 +37,7 @@ public partial class Farecharges : System.Web.UI.Page
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
-            SqlCommand cmd = new SqlCommand("insert into tblFarecharges  values(@b4kmDay,@b4kmNight,@a4kmDay,@a4kmNight,@wDay,@wNight)", con);
+            SqlCommand cmd = new SqlCommand("insert into tblFarecharges  values(@b4kmDay,@b4kmNight,@a4kmDay,@a4kmNight,@wDay,@wNight,@distance)", con);
          //   cmd.Parameters.Add("@city", SqlDbType.Int).Value = ddlCity.SelectedValue;
             cmd.Parameters.Add("@b4kmDay", SqlDbType.Decimal).Value = txtB4kmDay.Text;
             cmd.Parameters.Add("@b4kmNight", SqlDbType.Decimal).Value = txtB4kmNight.Text.Trim().ToUpper();
@@ -45,6 +45,8 @@ public partial class Farecharges : System.Web.UI.Page
             cmd.Parameters.Add("@a4kmNight", SqlDbType.Decimal).Value = txtA4kmNight.Text;
             cmd.Parameters.Add("@wDay", SqlDbType.Decimal).Value = txtWaitChargeDay.Text;
             cmd.Parameters.Add("@wNight", SqlDbType.Decimal).Value = txtWaitChargeNight.Text;
+            cmd.Parameters.Add("@distance", SqlDbType.Decimal).Value = txtDistance.Text;
+
             cmd.ExecuteNonQuery();
             MessageBox.Show("Data Inserted");
             disp();

@@ -42,6 +42,8 @@ public partial class BookCabPage : System.Web.UI.Page
             ddlCity.DataTextField = "City";
             ddlCity.DataValueField = "Id";
             ddlCity.DataBind();
+            ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+
         }
     }
     protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
@@ -56,6 +58,7 @@ public partial class BookCabPage : System.Web.UI.Page
         ddlPickUp.DataTextField = "Area";
         ddlPickUp.DataValueField = "Id";
         ddlPickUp.DataBind();
+        ddlPickUp.Items.Insert(0, new ListItem("--Select Area--", "0"));
         cab();
     }
     protected void ddlCabType_SelectedIndexChanged(object sender, EventArgs e)
@@ -75,23 +78,42 @@ public partial class BookCabPage : System.Web.UI.Page
         ddlDrop.DataTextField = "Area";
         ddlDrop.DataValueField = "Id";
         ddlDrop.DataBind();
+        ddlDrop.Items.Insert(0, new ListItem("--Select Area--", "0"));
+        string selectedArea = ddlPickUp.SelectedItem.Text;
+        ddlDrop.Items.FindByText(selectedArea).Enabled = false;
     }
     protected void btnDone_Click(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        con.Open();
-        SqlCommand cmd = new SqlCommand("select count(*) from tblCharges where From ='" + ddlPickUp.SelectedValue.ToString() + "' and To ='" + ddlDrop.SelectedValue.ToString() + "'", con);
+       
 
-        int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
-        if (c1 == 1)
-        {
-            MessageBox.Show("Found");
-        }
-        else
-        {
-            MessageBox.Show("Not Found");
-
-        }
-        con.Close();
+       DialogResult dr= MessageBox.Show("City\t"+ ddlCity.SelectedItem.ToString()+"\n"+
+                        "PickUp\t" + ddlPickUp.SelectedItem.ToString()+"\n"+
+                        "Drop\t"+ddlDrop.SelectedItem.ToString()+"\n"+
+                        "Date\t"+txtDate.Text+"\n"+
+                        "Time\t"+txtTime.Text+"\n","",MessageBoxButtons.OKCancel);
+       if (dr == DialogResult.OK)
+       {
+           try
+           {
+               SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+               con.Open();
+               SqlCommand cmd = new SqlCommand("insert into tblBooking values(@user,@city,@pickup,@drop,@date,@time,'10','250','Panding')", con);
+               cmd.Parameters.Add("@user", SqlDbType.NVarChar).Value = Session["email"].ToString();
+               cmd.Parameters.Add("@city", SqlDbType.Int).Value = ddlCity.SelectedValue.ToString();
+               cmd.Parameters.Add("@pickup", SqlDbType.Int).Value = ddlPickUp.SelectedValue.ToString();
+               cmd.Parameters.Add("@drop", SqlDbType.Int).Value = ddlDrop.SelectedValue.ToString();
+               cmd.Parameters.Add("@date", SqlDbType.Date).Value = txtDate.Text;
+               cmd.Parameters.Add("@time", SqlDbType.Time).Value = txtTime.Text;
+               cmd.ExecuteNonQuery();
+               con.Close();
+           }
+           catch (Exception ex)
+           {
+               Response.Write(ex);
+           }
+       }
+       else if (dr == DialogResult.Cancel)
+       {
+       }
     }
 }

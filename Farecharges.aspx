@@ -150,6 +150,28 @@
                     </tr>
                     <tr>
                         <td>
+                            <asp:Label ID="lblDistance" runat="server" Text="Distance"></asp:Label></td>
+                        <td>
+                            <asp:TextBox ID="txtDistance" runat="server" Width="85px"></asp:TextBox>
+                            /km
+                             <asp:RequiredFieldValidator
+                                 ID="rValidationDistance"
+                                 runat="server"
+                                 ValidationGroup="aa"
+                                 ControlToValidate="txtDistance"
+                                 ErrorMessage="* Enter Distance">
+                             </asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator
+                                ID="validationDistance"
+                                runat="server"
+                                ValidationGroup="aa"
+                                ErrorMessage="Only number allowed"
+                                ControlToValidate="txtDistance"
+                                ValidationExpression="^\d+$" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <asp:Button ID="btnDone" runat="server" ValidationGroup="aa" OnClientClick="return confirm('sure?');" Text="Done" OnClick="btnDone_Click" />
 
                         </td>

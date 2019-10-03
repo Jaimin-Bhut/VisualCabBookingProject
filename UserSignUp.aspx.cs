@@ -46,7 +46,7 @@ public partial class UserSignUp : System.Web.UI.Page
             cmd.Parameters.Add("@email", SqlDbType.NVarChar).Value = txtEmail.Text;
             cmd.Parameters.Add("@pass", SqlDbType.NVarChar).Value = txtCPassword.Text;
             cmd.ExecuteNonQuery();
-            MessageBox.Show("Record Inserted");
+            Response.Redirect("UserSignIn.aspx");
         }
         catch (Exception ex)
         {

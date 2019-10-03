@@ -25,7 +25,7 @@
                         <td>
                             <asp:Label ID="lblPickUp" runat="server" Text="Pick Up"></asp:Label></td>
                         <td>
-                            <asp:DropDownList ID="ddlFrom" runat="server" AutoPostBack="true"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlFrom" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFrom_SelectedIndexChanged"></asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rvalidatonFrom" ValidationGroup="aa" runat="server" ControlToValidate="ddlFrom" ErrorMessage="Select From Location"></asp:RequiredFieldValidator>
 
                         </td>
@@ -67,7 +67,7 @@
             </tr>--%>
                     <tr>
                         <td>
-                            <asp:Button ID="btnDone" runat="server" ValidationGroup="aa" OnClientClick="return confirm('sure?');" Text="Done" OnClick="btnDone_Click" />
+                            <asp:Button ID="btnDone" runat="server" ValidationGroup="aa" Text="Done" OnClick="btnDone_Click" />
 
                         </td>
                     </tr>
