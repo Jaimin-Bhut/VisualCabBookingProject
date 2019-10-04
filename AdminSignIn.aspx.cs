@@ -28,7 +28,6 @@ public partial class AdminSignIn : System.Web.UI.Page
         da.Fill(dt);
         if (dt.Rows.Count > 0)
         {
-            MessageBox.Show("Login Succesfully");
             Session["email"] = txtEmail.Text;
             Response.Redirect("AdminMain.aspx");
 

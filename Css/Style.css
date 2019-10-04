@@ -13,8 +13,8 @@
     background-repeat: no-repeat;
 }
 .login-box {
-    width: auto;
-    height: auto;
+    width: 800px;
+    height: 700px;
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
     top: 50%;

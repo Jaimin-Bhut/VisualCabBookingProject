@@ -33,7 +33,7 @@
                         <td>
                             <asp:Label ID="lblDrop" runat="server" Text="Drop"></asp:Label></td>
                         <td>
-                            <asp:DropDownList ID="ddlTo" runat="server" AutoPostBack="true"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlTo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlTo_SelectedIndexChanged"></asp:DropDownList>
                             <asp:RequiredFieldValidator ID="rvalidatonTo" ValidationGroup="aa" runat="server" ControlToValidate="ddlTo" ErrorMessage="Select To Location"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
@@ -42,7 +42,7 @@
                             <asp:Label ID="lblDistance" runat="server" Text="Distance"></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtDistance" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDistance" runat="server" EnableViewState="true"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rvalidationDistance"
                                 ValidationGroup="aa"
                                 runat="server"
@@ -51,20 +51,34 @@
                             </asp:RequiredFieldValidator>
                         </td>
                     </tr>
-                    <%--<tr>
-                <td>
-                    <asp:Label ID="lblPrice" runat="server" Text="Price"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="txtPrice" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rvalidatorPrice"
-                        ValidationGroup="aa"
-                        runat="server"
-                        ControlToValidate="txtPrice"
-                        ErrorMessage="Enter Price">
-                    </asp:RequiredFieldValidator>
-                </td>
-            </tr>--%>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblDayPrice" runat="server" Text="Day-Price"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtDayPrice" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rvalidatorDayPrice"
+                                ValidationGroup="aa"
+                                runat="server"
+                                ControlToValidate="txtDayPrice"
+                                ErrorMessage="Enter Price">
+                            </asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:Label ID="lblNightPrice" runat="server" Text="Night-Price"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtNightPrice" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rvalidatorNightPrice"
+                                ValidationGroup="aa"
+                                runat="server"
+                                ControlToValidate="txtNightPrice"
+                                ErrorMessage="Enter Price">
+                            </asp:RequiredFieldValidator>
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             <asp:Button ID="btnDone" runat="server" ValidationGroup="aa" Text="Done" OnClick="btnDone_Click" />
@@ -72,11 +86,11 @@
                         </td>
                     </tr>
                 </table>
-                <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
+                <asp:GridView ID="gvData" DataKeyNames="Distance_id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
                     <Columns>
                         <asp:TemplateField HeaderText="Id" Visible="false">
                             <ItemTemplate>
-                                <asp:HiddenField ID="hiddenId" Value='<%# Eval("Id") %>' runat="server" />
+                                <asp:HiddenField ID="hiddenId" Value='<%# Eval("Distance_id") %>' runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="City" ControlStyle-Font-Size="Smaller">
@@ -133,20 +147,34 @@
                                 </asp:RequiredFieldValidator>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <%--<asp:TemplateField HeaderText="Price" ControlStyle-Font-Size="Smaller">
-                    <ItemTemplate>
-                        <asp:Label ID="gvlblPrice" runat="server" Text='<%# Eval("Price") %>'></asp:Label>
-                    </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:TextBox ID="gvtxtPrice" runat="server" Text='<%# Eval("Price") %>'></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="gvfieldValidationPrice"
-                            runat="server"
-                            ValidationGroup="bb"
-                            ControlToValidate="gvtxtPrice"
-                            ErrorMessage="Enter Price">
-                        </asp:RequiredFieldValidator>
-                    </EditItemTemplate>
-                </asp:TemplateField>--%>
+                        <asp:TemplateField HeaderText="Day-Price" ControlStyle-Font-Size="Smaller">
+                            <ItemTemplate>
+                                <asp:Label ID="gvlblDayPrice" runat="server" Text='<%# Eval("DayPrice") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="gvtxtDayPrice" runat="server" Text='<%# Eval("DayPrice") %>'></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="gvfieldValidationDayPrice"
+                                    runat="server"
+                                    ValidationGroup="bb"
+                                    ControlToValidate="gvtxtDayPrice"
+                                    ErrorMessage="Enter Price">
+                                </asp:RequiredFieldValidator>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
+                          <asp:TemplateField HeaderText="Night-Price" ControlStyle-Font-Size="Smaller">
+                            <ItemTemplate>
+                                <asp:Label ID="gvlblNightPrice" runat="server" Text='<%# Eval("NightPrice") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="gvtxtNightPrice" runat="server" Text='<%# Eval("NightPrice") %>'></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="gvfieldValidationNightPrice"
+                                    runat="server"
+                                    ValidationGroup="bb"
+                                    ControlToValidate="gvtxtNightPrice"
+                                    ErrorMessage="Enter Price">
+                                </asp:RequiredFieldValidator>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:ImageButton ID="ImageButton1" ValidationGroup="bb" runat="server" ImageUrl="~/icon/edit_icon.png" BackColor="White" CommandName="Edit" ToolTip="Edit" Height="16px" Width="16px"></asp:ImageButton>
@@ -162,6 +190,5 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
-
 </asp:Content>
 
