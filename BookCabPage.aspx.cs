@@ -11,13 +11,13 @@ using System.Configuration;
 
 public partial class BookCabPage : System.Web.UI.Page
 {
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
     //    protected void Page_PreInit(object sender, EventArgs e)
     //    {
     //        this.MasterPageFile = "~/MasterPage1.master";
     //    }
     void cab()
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         string com = "Select * from tblCab where Working_City ='" + ddlCity.SelectedValue + "'";
         SqlDataAdapter adpt = new SqlDataAdapter(com, con);
         DataTable dt = new DataTable();
@@ -32,7 +32,6 @@ public partial class BookCabPage : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             string com = "Select * from tblCity";
             SqlDataAdapter adpt = new SqlDataAdapter(com, con);
             DataTable dt = new DataTable();
@@ -48,7 +47,6 @@ public partial class BookCabPage : System.Web.UI.Page
     }
     protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         string com = "Select * from tblArea where City_id ='" + ddlCity.SelectedValue + "'";
         SqlDataAdapter adpt = new SqlDataAdapter(com, con);
         DataTable dt = new DataTable();
@@ -68,7 +66,6 @@ public partial class BookCabPage : System.Web.UI.Page
 
     protected void ddlPickUp_SelectedIndexChanged(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         string com = "Select * from tblArea where City_id ='" + ddlCity.SelectedValue + "'";
         SqlDataAdapter adpt = new SqlDataAdapter(com, con);
         DataTable dt = new DataTable();
@@ -84,18 +81,15 @@ public partial class BookCabPage : System.Web.UI.Page
     }
     protected void btnDone_Click(object sender, EventArgs e)
     {
-       
-
        DialogResult dr= MessageBox.Show("City\t"+ ddlCity.SelectedItem.ToString()+"\n"+
                         "PickUp\t" + ddlPickUp.SelectedItem.ToString()+"\n"+
                         "Drop\t"+ddlDrop.SelectedItem.ToString()+"\n"+
                         "Date\t"+txtDate.Text+"\n"+
-                        "Time\t"+txtTime.Text+"\n","",MessageBoxButtons.OKCancel);
+                        "Time\t" +txtTime.Text+ "\n", "", MessageBoxButtons.OKCancel);
        if (dr == DialogResult.OK)
        {
            try
            {
-               SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
                con.Open();
                SqlCommand cmd = new SqlCommand("insert into tblBooking values(@user,@city,@pickup,@drop,@date,@time,'10','250','Panding')", con);
                cmd.Parameters.Add("@user", SqlDbType.NVarChar).Value = Session["email"].ToString();

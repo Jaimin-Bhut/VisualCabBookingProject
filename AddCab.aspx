@@ -25,6 +25,7 @@
                             <asp:RequiredFieldValidator
                                 ID="fieldValidationCabNo"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtCabNo"
                                 ErrorMessage="Enter Cab Number">
                             </asp:RequiredFieldValidator>
@@ -39,6 +40,7 @@
                             <asp:RequiredFieldValidator
                                 ID="fieldValidationCabName"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtCabName"
                                 ErrorMessage="Enter Cab Name">
                             </asp:RequiredFieldValidator>
@@ -56,6 +58,7 @@
                         <asp:RequiredFieldValidator
                             ID="fieldValidationCabType"
                             runat="server"
+                            ValidationGroup="aa"
                             ControlToValidate="ddlCabType"
                             ErrorMessage="Please select Cab">
                         </asp:RequiredFieldValidator>
@@ -69,6 +72,7 @@
                             <asp:RequiredFieldValidator
                                 ID="fieldValidationPCapacity"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtPerCapacity"
                                 ErrorMessage="Enter Person Capacity">
                             </asp:RequiredFieldValidator>
@@ -83,6 +87,7 @@
                             <asp:RequiredFieldValidator
                                 ID="fieldValidationLCapacity"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtLuggCapacity"
                                 ErrorMessage="Please Enter Lugg Capacity">
                             </asp:RequiredFieldValidator>
@@ -111,6 +116,7 @@
                             <asp:RequiredFieldValidator
                                 ID="fieldValidationCity"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="ddlCity"
                                 ErrorMessage="Select City">
                             </asp:RequiredFieldValidator>
@@ -118,114 +124,140 @@
                     </tr>
                     <tr>
                         <td>
-                <asp:Button ID="btnAddCab" runat="server" Text="Add Cab" OnClick="btnAddCab_Click" />
+                            <asp:Button ID="btnAddCab" runat="server" ValidationGroup="aa" Text="Add Cab" OnClick="btnAddCab_Click" />
 
                         </td>
                     </tr>
                 </table>
-                <asp:GridView ID="gvData" DataKeyNames="Cab_id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
-                    <Columns>
-                        <asp:TemplateField HeaderText="Id" Visible="false">
-                            <ItemTemplate>
-                                <asp:HiddenField ID="hiddenId" Value='<%# Eval("Cab_id") %>' runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Cab-Name" ControlStyle-Font-Size="Smaller">
-                            <ItemTemplate>
-                                <asp:Label ID="gvlblCity" runat="server" Text='<%# Eval("Cab_name") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="gvddlCity" runat="server" OnSelectedIndexChanged="gvddlCity_SelectedIndexChanged"></asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="gvfieldValidationCity"
-                                    runat="server"
-                                    ControlToValidate="gvddlCity"
-                                    ValidationGroup="bb"
-                                    ErrorMessage="Select To location" />
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="From" ControlStyle-Font-Size="Smaller">
-                            <ItemTemplate>
-                                <asp:Label ID="gvlblFrom" runat="server" Text='<%# Eval("Area") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="gvddlFrom" runat="server"></asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="gvfieldValidationFrom"
-                                    runat="server"
-                                    ControlToValidate="gvddlFrom"
-                                    ValidationGroup="bb"
-                                    ErrorMessage="Select From location" />
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="To" ControlStyle-Font-Size="Smaller">
-                            <ItemTemplate>
-                                <asp:Label ID="gvlblTo" runat="server" Text='<%# Eval("Area") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="gvddlTo" runat="server"></asp:DropDownList>
-                                <asp:RequiredFieldValidator ID="gvfieldValidationTo"
-                                    runat="server"
-                                    ControlToValidate="gvddlTo"
-                                    ValidationGroup="bb"
-                                    ErrorMessage="Select To location">
-                                </asp:RequiredFieldValidator>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Distance" ControlStyle-Font-Size="Smaller">
-                            <ItemTemplate>
-                                <asp:Label ID="gvlblDistance" runat="server" Text='<%# Eval("Distance") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="gvtxtDistance" runat="server" Text='<%# Eval("Distance") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="gvfieldValidationDistance"
-                                    runat="server"
-                                    ValidationGroup="bb"
-                                    ControlToValidate="gvtxtPrice"
-                                    ErrorMessage="Enter Distance">
-                                </asp:RequiredFieldValidator>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Day-Price" ControlStyle-Font-Size="Smaller">
-                            <ItemTemplate>
-                                <asp:Label ID="gvlblDayPrice" runat="server" Text='<%# Eval("DayPrice") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="gvtxtDayPrice" runat="server" Text='<%# Eval("DayPrice") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="gvfieldValidationDayPrice"
-                                    runat="server"
-                                    ValidationGroup="bb"
-                                    ControlToValidate="gvtxtDayPrice"
-                                    ErrorMessage="Enter Price">
-                                </asp:RequiredFieldValidator>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                          <asp:TemplateField HeaderText="Night-Price" ControlStyle-Font-Size="Smaller">
-                            <ItemTemplate>
-                                <asp:Label ID="gvlblNightPrice" runat="server" Text='<%# Eval("NightPrice") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="gvtxtNightPrice" runat="server" Text='<%# Eval("NightPrice") %>'></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="gvfieldValidationNightPrice"
-                                    runat="server"
-                                    ValidationGroup="bb"
-                                    ControlToValidate="gvtxtNightPrice"
-                                    ErrorMessage="Enter Price">
-                                </asp:RequiredFieldValidator>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:ImageButton ID="ImageButton1" ValidationGroup="bb" runat="server" ImageUrl="~/icon/edit_icon.png" BackColor="White" CommandName="Edit" ToolTip="Edit" Height="16px" Width="16px"></asp:ImageButton>
-                                <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/icon/delete_icon.png" BackColor="White" CommandName="Delete" ToolTip="Delete" Height="16px" Width="16px"></asp:ImageButton>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:ImageButton ID="ImageButton3" ValidationGroup="bb" runat="server" ImageUrl="~/icon/update_icon.png" BackColor="White" CommandName="Update" ToolTip="Update" Height="16px" Width="16px"></asp:ImageButton>
-                                <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/icon/cancel.png" BackColor="White" CommandName="Cancel" ToolTip="Cencle" Height="16px" Width="16px"></asp:ImageButton>
-                            </EditItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
             </ContentTemplate>
         </asp:UpdatePanel>
+        <asp:GridView ID="gvData" DataKeyNames="Cab_id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
+            <Columns>
+                <asp:TemplateField HeaderText="Cab-No">
+                    <ItemTemplate>
+                        <asp:Label ID="gvlblCabId" runat="server" Text='<%# Eval("Cab_Id") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="gvtxtCabId" runat="server" Text='<%# Eval("Cab_Id") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="gvfieldValidationCabId"
+                            runat="server"
+                            ControlToValidate="gvtxtCabId"
+                            ValidationGroup="bb"
+                            ErrorMessage="Enter Cab-Id" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Cab-Name" ControlStyle-Font-Size="Smaller">
+                    <ItemTemplate>
+                        <asp:Label ID="gvlblCabName" runat="server" Text='<%# Eval("Cab_name") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="gvtxtCabName" runat="server" Text='<%# Eval("Cab_name") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="gvfieldValidationCabName"
+                            runat="server"
+                            ControlToValidate="gvtxtCabName"
+                            ValidationGroup="bb"
+                            ErrorMessage="Enter Cab-Name" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <%--<asp:TemplateField HeaderText="Cab-Name" ControlStyle-Font-Size="Smaller">
+                            <ItemTemplate>
+                                <asp:Label ID="gvlblCabName" runat="server" Text='<%# Eval("Cab_Type") %>'></asp:Label>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="gvtxtCabName" runat="server"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="gvfieldValidationCabName"
+                                    runat="server"
+                                    ControlToValidate="gvtxtCabName"
+                                    ValidationGroup="bb"
+                                    ErrorMessage="Enter Cab-Name" />
+                            </EditItemTemplate>
+                        </asp:TemplateField>--%>
+                <asp:TemplateField HeaderText="Cab-Type" ControlStyle-Font-Size="Smaller">
+                    <ItemTemplate>
+                        <asp:Label ID="gvlblCabType" runat="server" Text='<%# Eval("Cab_type") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="gvddlCabType" runat="server">
+                            <asp:ListItem Text="Ac"></asp:ListItem>
+                            <asp:ListItem Text="Non-Ac"></asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="gvfieldValidationCabType"
+                            runat="server"
+                            ControlToValidate="gvddlCabType"
+                            ValidationGroup="bb"
+                            ErrorMessage="select Cab-Type" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Person-Capacity" ControlStyle-Font-Size="Smaller">
+                    <ItemTemplate>
+                        <asp:Label ID="gvlblPersonCapacity" runat="server" Text='<%# Eval("Person_capacity") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="gvtxtPersonCapacity" runat="server" Text='<%# Eval("Person_capacity") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="gvfieldValidationPersonCapacity"
+                            runat="server"
+                            ControlToValidate="gvtxtPersonCapacity"
+                            ValidationGroup="bb"
+                            ErrorMessage="Enter Person Capacity" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Lougage-Capacity" ControlStyle-Font-Size="Smaller">
+                    <ItemTemplate>
+                        <asp:Label ID="gvlblLougageCapacity" runat="server" Text='<%# Eval("Lougage_capacity") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="gvtxtLougageCapacity" runat="server" Text='<%# Eval("Lougage_capacity") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="gvfieldValidationLougageCapacity"
+                            runat="server"
+                            ControlToValidate="gvtxtLougageCapacity"
+                            ValidationGroup="bb"
+                            ErrorMessage="Enter Lougage-Capacity" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Working-City" ControlStyle-Font-Size="Smaller">
+                    <ItemTemplate>
+                        <asp:Label ID="gvlblWorkingCity" runat="server" Text='<%# Eval("City") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="gvddlWorkingCity" runat="server" AppendDataBoundItems="true"></asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="gvfieldValidationWorkingCity"
+                            runat="server"
+                            ControlToValidate="gvddlWorkingCity"
+                            ValidationGroup="bb"
+                            ErrorMessage="Select Working City" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Status" ControlStyle-Font-Size="Smaller">
+                    <ItemTemplate>
+                        <asp:Label ID="gvlblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="gvddlStatus" runat="server">
+                            <asp:ListItem Text="Available"></asp:ListItem>
+                            <asp:ListItem Text="Booked"></asp:ListItem>
+
+                        </asp:DropDownList>
+
+                        <asp:RequiredFieldValidator ID="gvfieldValidationStatus"
+                            runat="server"
+                            ControlToValidate="gvddlStatus"
+                            ValidationGroup="bb"
+                            ErrorMessage="Select Status" />
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:ImageButton ID="ImageButton1" ValidationGroup="bb" runat="server" ImageUrl="~/icon/edit_icon.png" BackColor="White" CommandName="Edit" ToolTip="Edit" Height="16px" Width="16px"></asp:ImageButton>
+                        <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/icon/delete_icon.png" BackColor="White" CommandName="Delete" ToolTip="Delete" Height="16px" Width="16px"></asp:ImageButton>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:ImageButton ID="ImageButton3" ValidationGroup="bb" runat="server" ImageUrl="~/icon/update_icon.png" BackColor="White" CommandName="Update" ToolTip="Update" Height="16px" Width="16px"></asp:ImageButton>
+                        <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/icon/cancel.png" BackColor="White" CommandName="Cancel" ToolTip="Cencle" Height="16px" Width="16px"></asp:ImageButton>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+
     </div>
 </asp:Content>
 

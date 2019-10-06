@@ -70,7 +70,7 @@ public partial class AddCharges : System.Web.UI.Page
         try
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            SqlCommand cmd = new SqlCommand("Select City,c.Id,Distance,Pick_up,aa.Area,DropArea,Distance,DayPrice,NightPrice,a.Area from tblArea a,tblDistance ch,tblArea aa,tblCity c where a.City_id=c.Id and a.Id=ch.DropArea and aa.id = ch.Pick_up", con);
+            SqlCommand cmd = new SqlCommand("Select *from tblDistance", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt1 = new DataTable();
             da.Fill(dt1);
@@ -85,7 +85,6 @@ public partial class AddCharges : System.Web.UI.Page
     }
     protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        gvCity(e);
     }
     protected void gvData_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     {
@@ -165,18 +164,23 @@ public partial class AddCharges : System.Web.UI.Page
     {
         try
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            con.Open();
-            DropDownList gvddlCity = (e.Row.FindControl("gvddlCity") as DropDownList);
-            SqlCommand cmd = new SqlCommand("select * from tblCity", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            gvddlCity.DataSource = dt;
-            gvddlCity.DataValueField = "Id";
-            gvddlCity.DataTextField = "City";
-            gvddlCity.DataBind();
-            con.Close();
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+                con.Open();
+                // var dropdown = (DropDownList)e.Row.FindControl("gvddlCity");
+                DropDownList gvddlCity = (e.Row.FindControl("gvddlCity") as DropDownList);
+                string query = "select * from tblCity";
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataAdapter daa = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                daa.Fill(dt);
+                gvddlCity.DataSource = dt;
+                gvddlCity.DataValueField = "Id";
+                gvddlCity.DataTextField = "City";
+                gvddlCity.DataBind();
+                con.Close();
+            }
         }
         catch (Exception ex)
         {
