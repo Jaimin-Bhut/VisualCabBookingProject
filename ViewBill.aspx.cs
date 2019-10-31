@@ -11,36 +11,4 @@ public partial class ViewBill : System.Web.UI.Page
     {
 
     }
-    protected void btnDone_Click(object sender, EventArgs e)
-    {
-
-    }
-    protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-
-    }
-    protected void gvData_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-    {
-
-    }
-    protected void gvData_RowDeleting(object sender, GridViewDeleteEventArgs e)
-    {
-
-    }
-    protected void gvData_RowEditing(object sender, GridViewEditEventArgs e)
-    {
-
-    }
-    protected void gvData_RowUpdating(object sender, GridViewUpdateEventArgs e)
-    {
-
-    }
-    protected void gvddlCity_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-    protected void ddlFrom_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
 }

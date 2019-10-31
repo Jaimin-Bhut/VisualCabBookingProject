@@ -10,6 +10,9 @@
             <ContentTemplate>
                 <center> <asp:Label ID="lblHeading" Text="Charges" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></center>
                 <br />
+                <br />
+                           <center><asp:Label ID="lblError" runat="server"></asp:Label></center>
+                <br />
                 <table class="auto-style1">
                     <tr>
                         <td>
@@ -110,7 +113,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="From" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="gvlblFrom" runat="server" Text='<%# Eval("Pick_up") %>'></asp:Label>
+                        <asp:Label ID="gvlblFrom" runat="server" Text='<%# Eval("Area") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="gvddlFrom" runat="server"></asp:DropDownList>
@@ -123,7 +126,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="To" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="gvlblTo" runat="server" Text='<%# Eval("DropArea") %>'></asp:Label>
+                        <asp:Label ID="gvlblTo" runat="server" Text='<%# Eval("Area") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="gvddlTo" runat="server"></asp:DropDownList>
@@ -144,7 +147,7 @@
                         <asp:RequiredFieldValidator ID="gvfieldValidationDistance"
                             runat="server"
                             ValidationGroup="bb"
-                            ControlToValidate="gvtxtPrice"
+                            ControlToValidate="gvtxtDistance"
                             ErrorMessage="Enter Distance">
                         </asp:RequiredFieldValidator>
                     </EditItemTemplate>

@@ -10,6 +10,8 @@ using System.Configuration;
 
 public partial class AddCharges : System.Web.UI.Page
 {
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -20,7 +22,6 @@ public partial class AddCharges : System.Web.UI.Page
     }
     void city()
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         SqlCommand cmd = new SqlCommand("select * from tblCity", con);
         SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();
@@ -33,44 +34,11 @@ public partial class AddCharges : System.Web.UI.Page
         ddlCity.SelectedIndex = 0;
 
     }
-    void area2()
-    {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        string com = "Select * from tblArea where City_id ='" + ddlCity.SelectedValue + "'";
-        SqlDataAdapter adpt = new SqlDataAdapter(com, con);
-        DataTable dt = new DataTable();
-        adpt.Fill(dt);
-        ddlTo.DataSource = dt;
-        ddlTo.DataBind();
-        ddlTo.DataTextField = "Area";
-        ddlTo.DataValueField = "Id";
-        ddlTo.DataBind();
-        ddlTo.Items.Insert(0, new ListItem("--Select Area--", "0"));
-        ddlTo.SelectedIndex = 0;
-
-    }
-    void area()
-    {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        string com = "Select * from tblArea where City_id ='" + ddlCity.SelectedValue + "'";
-        SqlDataAdapter adpt = new SqlDataAdapter(com, con);
-        DataTable dt = new DataTable();
-        adpt.Fill(dt);
-        ddlFrom.DataSource = dt;
-        ddlFrom.DataBind();
-        ddlFrom.DataTextField = "Area";
-        ddlFrom.DataValueField = "Id";
-        ddlFrom.DataBind();
-        ddlFrom.Items.Insert(0, new ListItem("--Select Area--", "0"));
-        ddlFrom.SelectedIndex = 0;
-
-    }
     void disp()
     {
         try
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            SqlCommand cmd = new SqlCommand("Select *from tblDistance", con);
+            SqlCommand cmd = new SqlCommand("Select d.Distance_id,d.City_id,d.Pick_up,d.DropArea,d.Distance,d.DayPrice,d.NightPrice,a.Id,a.Area,b.Area from tblDistance d,tblArea a,tblArea b where d.Pick_up=a.Id and b.Id=d.DropArea", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt1 = new DataTable();
             da.Fill(dt1);
@@ -96,7 +64,6 @@ public partial class AddCharges : System.Web.UI.Page
         try
         {
             int DelId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
             SqlCommand cmd = new SqlCommand("delete from tblDistance Where Distance_id=" + DelId, con);
             cmd.ExecuteNonQuery();
@@ -119,7 +86,6 @@ public partial class AddCharges : System.Web.UI.Page
         {
             Label id = gvData.Rows[e.RowIndex].FindControl("lid") as Label;
             int UpdateId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             DropDownList updateCity = gvData.Rows[e.RowIndex].FindControl("gvddlCity") as DropDownList;
             DropDownList updateFrom = gvData.Rows[e.RowIndex].FindControl("gvddlFrom") as DropDownList;
             DropDownList updateTo = gvData.Rows[e.RowIndex].FindControl("gvddlTo") as DropDownList;
@@ -142,23 +108,40 @@ public partial class AddCharges : System.Web.UI.Page
     protected void btnDone_Click(object sender, EventArgs e)
     {
 
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         con.Open();
-        SqlCommand cmd = new SqlCommand("insert into tblDistance values(@city,@from,@to,@distance,@dayprice,@nightprice)", con);
-        cmd.Parameters.Add("@city", SqlDbType.Int).Value = ddlCity.SelectedValue.ToString();
-        cmd.Parameters.Add("@from", SqlDbType.Int).Value = ddlFrom.SelectedValue.ToString();
-        cmd.Parameters.Add("@to", SqlDbType.Int).Value = ddlTo.SelectedValue.ToString();
-        cmd.Parameters.Add("@distance", SqlDbType.Int).Value = txtDistance.Text.Trim();
-        cmd.Parameters.Add("@dayprice", SqlDbType.Int).Value = txtDayPrice.Text.Trim();
-        cmd.Parameters.Add("@nightprice", SqlDbType.Int).Value = txtNightPrice.Text.Trim();
-        cmd.ExecuteNonQuery();
-        disp();
+        SqlCommand cmd1 = new SqlCommand("select count(*) from tblDistance where Pick_up ='" + ddlFrom.SelectedValue.ToString() + "' and DropArea ='"+ddlTo.SelectedValue.ToString()+"'", con);
+        int c1 = Int32.Parse(cmd1.ExecuteScalar().ToString());
+        if (c1 == 1)
+        {
+            lblError.Text="Charges Already Available";
 
+        }
+        else
+        {
+            SqlCommand cmd = new SqlCommand("insert into tblDistance values(@city,@from,@to,@distance,@dayprice,@nightprice)", con);
+            cmd.Parameters.Add("@city", SqlDbType.Int).Value = ddlCity.SelectedValue.ToString();
+            cmd.Parameters.Add("@from", SqlDbType.Int).Value = ddlFrom.SelectedValue.ToString();
+            cmd.Parameters.Add("@to", SqlDbType.Int).Value = ddlTo.SelectedValue.ToString();
+            cmd.Parameters.Add("@distance", SqlDbType.Int).Value = txtDistance.Text.Trim();
+            cmd.Parameters.Add("@dayprice", SqlDbType.Int).Value = txtDayPrice.Text.Trim();
+            cmd.Parameters.Add("@nightprice", SqlDbType.Int).Value = txtNightPrice.Text.Trim();
+            cmd.ExecuteNonQuery();
+            disp();
+        }
     }
     protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
     {
-        area();
-        area2();
+        string com = "Select * from tblArea where City_id ='" + ddlCity.SelectedValue + "'";
+        SqlDataAdapter adpt = new SqlDataAdapter(com, con);
+        DataTable dt = new DataTable();
+        adpt.Fill(dt);
+        ddlFrom.DataSource = dt;
+        ddlFrom.DataBind();
+        ddlFrom.DataTextField = "Area";
+        ddlFrom.DataValueField = "Id";
+        ddlFrom.DataBind();
+        ddlFrom.Items.Insert(0, new ListItem("--Select Area--", "0"));
+        ddlFrom.SelectedIndex = 0;
     }
     void gvCity(GridViewRowEventArgs e)
     {
@@ -166,7 +149,6 @@ public partial class AddCharges : System.Web.UI.Page
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
                 con.Open();
                 // var dropdown = (DropDownList)e.Row.FindControl("gvddlCity");
                 DropDownList gvddlCity = (e.Row.FindControl("gvddlCity") as DropDownList);
@@ -189,7 +171,6 @@ public partial class AddCharges : System.Web.UI.Page
     }
     protected void gvddlCity_SelectedIndexChanged(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         DropDownList gvddlCity = (FindControl("gvddlCity") as DropDownList);
         DropDownList gvddlFrom = (FindControl("gvddlFrom") as DropDownList);
         SqlCommand cmd = new SqlCommand("select * from tblArea Where City_id ='" + gvddlCity.SelectedValue.ToString() + "'", con);
@@ -204,6 +185,17 @@ public partial class AddCharges : System.Web.UI.Page
     }
     protected void ddlFrom_SelectedIndexChanged(object sender, EventArgs e)
     {
+        string com = "Select * from tblArea where City_id ='" + ddlCity.SelectedValue + "'";
+        SqlDataAdapter adpt = new SqlDataAdapter(com, con);
+        DataTable dt = new DataTable();
+        adpt.Fill(dt);
+        ddlTo.DataSource = dt;
+        ddlTo.DataBind();
+        ddlTo.DataTextField = "Area";
+        ddlTo.DataValueField = "Id";
+        ddlTo.DataBind();
+        ddlTo.Items.Insert(0, new ListItem("--Select Area--", "0"));
+        ddlTo.SelectedIndex = 0;
         string selectedArea = ddlFrom.SelectedItem.Text;
         ddlTo.Items.FindByText(selectedArea).Enabled = false;
     }

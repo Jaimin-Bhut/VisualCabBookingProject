@@ -32,9 +32,9 @@
                 </asp:RegularExpressionValidator>
                 <br />
                 <br />
-                <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" Height="154px" OnRowDeleting="gvData_RowDeleting" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
+                <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" OnRowDeleting="gvData_RowDeleting" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
                     <Columns>
-                        <asp:TemplateField HeaderText="State">
+                        <asp:TemplateField HeaderText="State" ControlStyle-Font-Size="Smaller">
                             <ItemTemplate>
                                 <asp:Label ID="lblState" runat="server" Text='<%# Eval("State") %>'></asp:Label>
                             </ItemTemplate>
@@ -42,7 +42,7 @@
                                 <asp:TextBox ID="txtState" runat="server" Text='<%# Eval("State") %>'></asp:TextBox>
                             </EditItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField>
+                        <asp:TemplateField ControlStyle-Font-Size="Smaller">
                             <ItemTemplate>
                                 <asp:ImageButton ID="ImageButton1" runat="server" BackColor="White" ImageUrl="~/icon/edit_icon.png" CommandName="Edit" ToolTip="Edit" Height="16px" Width="16px"></asp:ImageButton>
                                 <asp:ImageButton ID="ImageButton2" runat="server" BackColor="White" ImageUrl="~/icon/delete_icon.png" CommandName="Delete" ToolTip="Delete" Height="16px" Width="16px"></asp:ImageButton>

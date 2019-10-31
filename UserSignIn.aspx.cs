@@ -9,7 +9,6 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms;
 
-
 public partial class UserSignIn : System.Web.UI.Page
 {
     //protected void Page_PreInit(object sender, EventArgs e)
@@ -26,7 +25,7 @@ public partial class UserSignIn : System.Web.UI.Page
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
-            SqlCommand cmd = new SqlCommand("select count(*) from tblUserSignUp where Email =@username and Password=@password", con);
+            SqlCommand cmd = new SqlCommand("select * from tblUserSignUp where Email =@username and Password=@password", con);
             cmd.Parameters.AddWithValue("@username", SqlDbType.NVarChar).Value = txtEmail.Text;
             cmd.Parameters.AddWithValue("@password", SqlDbType.NVarChar).Value = txtPass.Text;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -34,9 +33,8 @@ public partial class UserSignIn : System.Web.UI.Page
             da.Fill(dt);
             if (dt.Rows.Count > 0)
             {
-                Session["email"] = txtEmail.Text;
+                Session["UserEmail"] = txtEmail.Text;
                 Response.Redirect("BookCabPage.aspx");
-
             }
             else
             {

@@ -11,6 +11,8 @@ using System.Configuration;
 
 public partial class AddCity : System.Web.UI.Page
 {
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+
     protected void Page_PreInit(object sender, EventArgs e)
     {
         this.MasterPageFile = "~/MasterPage1.master";
@@ -20,8 +22,7 @@ public partial class AddCity : System.Web.UI.Page
     {
         try
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            SqlCommand cmd = new SqlCommand("Select State,c.Id,City from tblState s , tblCity c where s.Id = c.State_id", con);
+            SqlCommand cmd = new SqlCommand("Select State,c.Id,City from tblState s, tblCity c where s.Id = c.State_id", con);
             SqlDataAdapter Adp = new SqlDataAdapter(cmd);
             DataTable Dt1 = new DataTable();
             Adp.Fill(Dt1);
@@ -39,7 +40,6 @@ public partial class AddCity : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             SqlCommand cmd = new SqlCommand("select * from tblState ", con);
             SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -54,21 +54,18 @@ public partial class AddCity : System.Web.UI.Page
         }
     }
     protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
-    {/*
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            con.Open();
-            SqlCommand cmd = new SqlCommand("Select State,s.Id,City from tblState s,tblCity c where s.Id=c.State_id and c.State_id ='"+ddlState.SelectedValue.ToString()+"'", con);
-            SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            Adpt.Fill(dt);
-            gvData.DataSource = dt;
-            gvData.DataBind();
-            con.Close();
-       */ 
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand("Select State,s.Id,City from tblState s,tblCity c where s.Id=c.State_id and c.State_id ='" + ddlState.SelectedValue.ToString() + "'", con);
+        SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
+        DataTable dt = new DataTable();
+        Adpt.Fill(dt);
+        gvData.DataSource = dt;
+        gvData.DataBind();
+        con.Close();
     }
     protected void btnAddCity_Click(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         con.Open();
         SqlCommand cmd = new SqlCommand("select count(*) from tblCity where State_id ='" + ddlState.SelectedValue.ToString() + "' and City ='" + txtCity.Text + "'", con);
         int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
@@ -98,7 +95,6 @@ public partial class AddCity : System.Web.UI.Page
     protected void gvData_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
         int DelId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         con.Open();
         SqlCommand cmd = new SqlCommand("delete from tblCity Where Id=" + DelId+"", con);
         cmd.ExecuteNonQuery();
@@ -115,24 +111,22 @@ public partial class AddCity : System.Web.UI.Page
     {
         Label id = gvData.Rows[e.RowIndex].FindControl("lid") as Label;
         int UpdateId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         DropDownList ddla = gvData.Rows[e.RowIndex].FindControl("eddlState") as DropDownList;
         TextBox txtname = gvData.Rows[e.RowIndex].FindControl("txtGCity") as TextBox;
         con.Open();
         SqlCommand cmd = new SqlCommand("update tblCity set State_id=" + ddla.SelectedValue + ",City='" + txtname.Text.Trim().ToUpper() + "' where Id=" + UpdateId, con);
         Response.Write(cmd.CommandText);
         cmd.ExecuteNonQuery();
-        disp();
         con.Close();
         gvData.EditIndex = -1;
-
+        disp();
     }
     protected void ddlState_DataBound(object sender, EventArgs e)
     {
     }
     protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        try
+        /*try
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
@@ -150,6 +144,6 @@ public partial class AddCity : System.Web.UI.Page
         catch (Exception ex)
         {
             Response.Write(ex);
-        }
+        }*/
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AddCity.aspx.cs" Inherits="AddCity" %>
+﻿<%@ Page Title="ADD CITY" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AddCity.aspx.cs" Inherits="AddCity" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -51,20 +51,24 @@
         </asp:UpdatePanel>
         <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
             <Columns>
-                <asp:TemplateField HeaderText="Id" Visible="false">
+                <asp:TemplateField HeaderText="Id" Visible="false" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
                         <asp:Label ID="lid" runat="server" Text='<%# Eval("Id") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="State">
+                <asp:TemplateField HeaderText="State" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
                         <asp:Label ID="lblState" runat="server" Text='<%# Eval("State") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:DropDownList runat="server" ID="eddlState"></asp:DropDownList>
+                        <asp:DropDownList runat="server" ID="eddlState">
+                            <asp:ListItem Text="--Select--" Value="0" Selected="True" />
+                            <asp:ListItem Text="GUJRAT" Value="21" />
+                            <asp:ListItem Text="MAHARASHTRA" Value="22" />
+                        </asp:DropDownList>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="City">
+                <asp:TemplateField HeaderText="City" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
                         <asp:Label ID="lblCity" runat="server" Text='<%# Eval("City") %>'></asp:Label>
                     </ItemTemplate>
@@ -72,7 +76,7 @@
                         <asp:TextBox ID="txtGCity" runat="server" Text='<%# Eval("City") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField>
+                <asp:TemplateField ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
                         <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/icon/edit_icon.png" BackColor="White" CommandName="Edit" ToolTip="Edit" Height="16px" Width="16px"></asp:ImageButton>
                         <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/icon/delete_icon.png" BackColor="White" CommandName="Delete" ToolTip="Delete" Height="16px" Width="16px"></asp:ImageButton>
@@ -84,7 +88,6 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-
     </div>
 </asp:Content>
 

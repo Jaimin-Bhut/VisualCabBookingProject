@@ -118,7 +118,7 @@ public partial class AddCab : System.Web.UI.Page
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            gvddlCity.DataSource = dt;
+            //    gvddlCity.DataSource = dt;
             gvddlCity.DataValueField = "Id";
             gvddlCity.DataTextField = "City";
             gvddlCity.DataBind();

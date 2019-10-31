@@ -139,15 +139,14 @@ public partial class AddArea : System.Web.UI.Page
     {
         try
         {
-
             int UpdateId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            string state = (gvData.Rows[e.RowIndex].FindControl("eddlState") as DropDownList).SelectedValue.ToString();
-            string city = (gvData.Rows[e.RowIndex].FindControl("eddlCity") as DropDownList).SelectedValue.ToString();
-            HiddenField field = gvData.Rows[e.RowIndex].FindControl("hiddenId") as HiddenField;
-            string area = (gvData.Rows[e.RowIndex].FindControl("txtArea") as System.Web.UI.WebControls.TextBox).Text.Trim().ToUpper();
+            //string id = (gvData.Rows[e.RowIndex].FindControl("gvlblId") as System.Web.UI.WebControls.Label).Text;
+            string state = (gvData.Rows[e.RowIndex].FindControl("eddlState") as DropDownList).SelectedValue;
+            string city = (gvData.Rows[e.RowIndex].FindControl("eddlCity") as DropDownList).SelectedValue;
+            string area = (gvData.Rows[e.RowIndex].FindControl("etxtArea") as System.Web.UI.WebControls.TextBox).Text.Trim().ToUpper();
             con.Open();
-            SqlCommand cmd = new SqlCommand("update tblArea set State_id=" + state + ",City_id=" + city + ",Area ='" + area + "' where Id=" + UpdateId + "", con);
+            SqlCommand cmd = new SqlCommand("update tblArea set State_id=" + state + ",City_id=" + city + ",Area ='" + area + "' where Id='" + UpdateId + "'", con);
             Response.Write(cmd.CommandText);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -167,7 +166,7 @@ public partial class AddArea : System.Web.UI.Page
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             DropDownList gvddlState = (FindControl("eddlState") as DropDownList);
             DropDownList gvddlCity = (FindControl("eddlCity") as DropDownList);
-            SqlCommand cmd = new SqlCommand("select * from tblCity Where State_id ='" + gvddlState.SelectedValue.ToString() + "'", con);
+            SqlCommand cmd = new SqlCommand("select * from tblCity Where State_id ='" + gvddlState.SelectedValue + "'", con);
             SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             Adpt.Fill(dt);

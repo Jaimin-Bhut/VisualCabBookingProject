@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage1.master" AutoEventWireup="true" CodeFile="AdminMain.aspx.cs" Inherits="AdminMain" %>
+﻿<%@ Page Title="ADMIN MAIN" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="AdminMain.aspx.cs" Inherits="AdminMain" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -32,6 +32,11 @@
                     <asp:Label ID="lblAddCab" runat="server" Text="Add Cab"></asp:Label>
 
                 </td>
+                <td>
+                    <asp:ImageButton CssClass="img" ID="imgbtnFeedback" runat="server" ImageUrl="~/icon/feedback_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="View Feedback" OnClick="imgbtnFeedback_Click" /><br />
+                    <asp:Label ID="lblFeedback" runat="server" Text="Feedback"></asp:Label>
+
+                </td>
                 </tr>
             <tr>
                 <td>
@@ -40,8 +45,8 @@
 
                 </td>
                 <td>
-                    <asp:ImageButton CssClass="img" ID="imgbtnAssignCab" runat="server" ImageUrl="~/icon/asignCab_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="Assign Cab" OnClick="imgbtnAssignCab_Click" /><br />
-                    <asp:Label ID="lblAssingnCab" runat="server" Text="Assign Cab"></asp:Label>
+                    <asp:ImageButton CssClass="img" ID="imgbtnAddCharges" runat="server" ImageUrl="~/icon/addcharges_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="Feedback" OnClick="imgbtnAddCharges_Click" /><br />
+                    <asp:Label ID="lblAddCharges" runat="server" Text="Add Charges"></asp:Label>
 
                 </td>
                 <td>
@@ -53,6 +58,10 @@
                     <asp:ImageButton CssClass="img" ID="imgbtnClients" runat="server" ImageUrl="~/icon/Clients_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="Clients" /><br />
                     <asp:Label ID="lblClients" runat="server" Text="Clients Details"></asp:Label>
 
+                </td>
+                <td>
+                    <asp:ImageButton CssClass="img" ID="imgbtnSignOut" runat="server" ImageUrl="~/icon/signout_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="Sign-Out" OnClick="imgbtnSignOut_Click" /><br />
+                    <asp:Label ID="lblSignOut" runat="server" Text="Sign Out"></asp:Label>
                 </td>
             </tr>
         </table>

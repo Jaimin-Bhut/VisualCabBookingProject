@@ -11,7 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <%--<div>
+        <div>
             <center>
             <table>
                 <tr style="width: 1100px; height: 50px">
@@ -24,7 +24,7 @@
                                 <asp:HyperLink ID="linkBookCab" runat="server" Text="Book Cab"></asp:HyperLink>
                             </li>
                             <li>
-                                <asp:HyperLink ID="linkFeedback" runat="server" Text="Feedback"></asp:HyperLink>
+                                <asp:HyperLink ID="linkFeedback" runat="server" Text="Feedback" NavigateUrl="~/Feedback.aspx"></asp:HyperLink>
                             </li>
                             <li><a href="#">Login</a>
                                 <ul>
@@ -45,7 +45,7 @@
                         </ul>
                     </td>
                 </tr>
-            </table>--%>
+            </table>
 </center>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
