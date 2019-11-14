@@ -12,6 +12,8 @@ using System.Windows.Forms;
 
 public partial class AddArea : System.Web.UI.Page
 {
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+
     protected void Page_PreInit(object sender,EventArgs e)
     {
         this.MasterPageFile="~/MasterPage1.master";
@@ -20,7 +22,6 @@ public partial class AddArea : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             string com = "Select * from tblState";
             SqlDataAdapter adpt = new SqlDataAdapter(com, con);
             DataTable dt = new DataTable();
@@ -34,14 +35,12 @@ public partial class AddArea : System.Web.UI.Page
             ddlState.Items[0].Selected = true;
             ddlState.Items[0].Attributes["disabled"] = "disabled";
             disp();
-           
-
         }
     }
     void disp()
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        SqlCommand cmd = new SqlCommand("Select State,s.Id,City,Area from tblState s , tblCity c,tblArea a where s.Id = c.State_id and a.City_id=c.Id", con);
+        SqlCommand cmd = new SqlCommand("Select a.Id,s.State,s.Id,City,a.Area from tblState s , tblCity c,tblArea a where s.Id = c.State_id and a.City_id=c.Id", con);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataTable dt1 = new DataTable();
         da.Fill(dt1);
@@ -52,7 +51,6 @@ public partial class AddArea : System.Web.UI.Page
     }
     protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         SqlCommand cmd = new SqlCommand("select * from tblCity Where State_id ='" + ddlState.SelectedValue.ToString() + "'", con);
         SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();
@@ -80,21 +78,19 @@ public partial class AddArea : System.Web.UI.Page
     }
     protected void btnAddArea_Click(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         con.Open();
         SqlCommand cmd = new SqlCommand("select count(*) from tblArea where State_id ='" + ddlState.SelectedValue.ToString() + "' and City_id ='" + ddlCity.SelectedValue.ToString() + "' and Area = '"+txtArea.Text+"'", con);
 
         int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
         if (c1 == 1)
         {
-            MessageBox.Show("City is Already Exist");
-
+            lblMessage.Text = "Area Already Exist";
         }
         else
         {
             SqlCommand cmd1 = new SqlCommand("insert into tblArea values('" + ddlState.SelectedValue + "','" + ddlCity.SelectedValue + "','" + txtArea.Text.Trim().ToUpper() + "')", con);
             cmd1.ExecuteNonQuery();
-            MessageBox.Show("Data inserted Succesfully");
+            lblMessage.Text = "Data Inserted Succesfully";
             disp();
             ddlState.SelectedIndex = 0;
             ddlCity.SelectedIndex = 0;
@@ -112,21 +108,14 @@ public partial class AddArea : System.Web.UI.Page
     }
     protected void gvData_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        try
-        {
+        
             int DelId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
-            SqlCommand cmd = new SqlCommand("delete from tblArea Where Id=" + DelId, con);
+            SqlCommand cmd = new SqlCommand("delete from tblArea Where Id="+DelId+"", con);
             Response.Write(cmd.CommandText);
-            cmd.ExecuteNonQuery();
+           cmd.ExecuteNonQuery();
             con.Close();
             disp();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.ToString());
-        }
 
     }
     protected void gvData_RowEditing(object sender, GridViewEditEventArgs e)
@@ -140,7 +129,6 @@ public partial class AddArea : System.Web.UI.Page
         try
         {
             int UpdateId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             //string id = (gvData.Rows[e.RowIndex].FindControl("gvlblId") as System.Web.UI.WebControls.Label).Text;
             string state = (gvData.Rows[e.RowIndex].FindControl("eddlState") as DropDownList).SelectedValue;
             string city = (gvData.Rows[e.RowIndex].FindControl("eddlCity") as DropDownList).SelectedValue;
@@ -163,7 +151,6 @@ public partial class AddArea : System.Web.UI.Page
     {
         try
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             DropDownList gvddlState = (FindControl("eddlState") as DropDownList);
             DropDownList gvddlCity = (FindControl("eddlCity") as DropDownList);
             SqlCommand cmd = new SqlCommand("select * from tblCity Where State_id ='" + gvddlState.SelectedValue + "'", con);

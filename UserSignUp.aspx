@@ -72,7 +72,7 @@
                                 runat="server"
                                 ErrorMessage="Only characters allowed"
                                 ControlToValidate="txtContactNo"
-                                ValidationExpression="^9\d{9}$">
+                                ValidationExpression="^[7-9]\d{9}$">
                             </asp:RegularExpressionValidator>
 
                         </td>

@@ -29,6 +29,8 @@ public partial class UserSignUp : System.Web.UI.Page
             ddlCity.DataTextField = "City";
             ddlCity.DataValueField = "Id";
             ddlCity.DataBind();
+            ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+
         }
        
     }

@@ -14,11 +14,11 @@ public partial class AddCharges : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
+        //if (IsPostBack)
+        //{
             city();
             disp();
-        }
+       // }
     }
     void city()
     {
@@ -38,12 +38,13 @@ public partial class AddCharges : System.Web.UI.Page
     {
         try
         {
-            SqlCommand cmd = new SqlCommand("Select d.Distance_id,d.City_id,d.Pick_up,d.DropArea,d.Distance,d.DayPrice,d.NightPrice,a.Id,a.Area,b.Area from tblDistance d,tblArea a,tblArea b where d.Pick_up=a.Id and b.Id=d.DropArea", con);
+            SqlCommand cmd = new SqlCommand("Select d.Distance_id,c.City,c.Id,d.City_id,d.Pick_up,d.DropArea,d.Distance,d.DayPrice,d.NightPrice,a.Id,a.Area,b.Area from tblDistance d,tblCity c,tblArea a,tblArea b where d.Pick_up=a.Id and b.Id=d.DropArea and c.Id=d.City_id and a.City_id=d.City_id and b.City_id=d.City_id", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt1 = new DataTable();
             da.Fill(dt1);
             gvData.DataSource = dt1;
             gvData.DataBind();
+          
             con.Close();
         }
         catch (Exception ex)
@@ -93,7 +94,7 @@ public partial class AddCharges : System.Web.UI.Page
             TextBox updateDayPrice = gvData.Rows[e.RowIndex].FindControl("gvtxtDayPrice") as TextBox;
             TextBox updateNightPrice = gvData.Rows[e.RowIndex].FindControl("gvtxtNightPrice") as TextBox;
             con.Open();
-            SqlCommand cmd = new SqlCommand("update tblDistance set City_id=" + updateCity.SelectedValue + ",From='" + updateFrom.SelectedValue + "',To ='" + updateTo.SelectedValue + "',Distance ='" + updateDistace.Text + "',DayPrice='" + updateDayPrice.Text + "',NightPrice='"+updateNightPrice.Text+"' where Distance_id=" + UpdateId, con);
+            SqlCommand cmd = new SqlCommand("update tblDistance set Distance ='" + updateDistace.Text + "',DayPrice='" + updateDayPrice.Text + "',NightPrice='"+updateNightPrice.Text+"' where Distance_id= '" + UpdateId+"'", con);
             Response.Write(cmd.CommandText);
             cmd.ExecuteNonQuery();
             disp();
@@ -201,8 +202,8 @@ public partial class AddCharges : System.Web.UI.Page
     }
     protected void ddlTo_SelectedIndexChanged(object sender, EventArgs e)
     {
-        txtDayPrice.Text = "";
-        txtDistance.Text = "";
-        txtNightPrice.Text = "";
+        txtDayPrice.Text =String.Empty;
+        txtDistance.Text = String.Empty;
+        txtNightPrice.Text = String.Empty;
     }
 }

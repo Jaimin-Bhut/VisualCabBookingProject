@@ -7,6 +7,8 @@
     <br />
     <br />
     <div class="box">
+                       <center> <h1><asp:Label ID="lblHeading" Text="USER SIGN IN" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></h1></center>
+
         <br />
         <asp:TextBox CssClass="text" ID="txtEmail" runat="server" placeholder="Username"></asp:TextBox>
     <h5>    <asp:RequiredFieldValidator ID="fieldValidationEmail" runat="server" ErrorMessage="Please Enter Email" ControlToValidate="txtEmail" ValidationGroup="aa"></asp:RequiredFieldValidator></h5>

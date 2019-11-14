@@ -7,10 +7,12 @@
     <br />
     <link href="Css/Style.css" rel="stylesheet" />
     <div class="login-box">
-        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+        <%--<asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>
+            <ContentTemplate>--%>
                 <center> <asp:Label ID="lblHeading" Text="ADD AREA" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></center>
+                <br />
+                <center><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></center>
                 <br />
                 <table class="auto-style1">
                     <tr>
@@ -20,7 +22,7 @@
                         <td>
                             <asp:DropDownList ID="ddlState" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="fieldValidationState" ValidationGroup="btnAddArea"
+                            <asp:RequiredFieldValidator ID="fieldValidationState" ValidationGroup="aa"
                                 runat="server"
                                 ControlToValidate="ddlState"
                                 ErrorMessage="Select State">
@@ -34,7 +36,7 @@
                         <td>
                             <asp:DropDownList ID="ddlCity" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rValidationCity" ValidationGroup="btnAddArea" runat="server" ControlToValidate="ddlCity" ErrorMessage="Select City"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rValidationCity" ValidationGroup="aa" runat="server" ControlToValidate="ddlCity" ErrorMessage="Select City"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +46,7 @@
                         <td>
                             <asp:TextBox ID="txtArea" runat="server" AutoCompleteType="Disabled"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rvalidationArea"
-                                ValidationGroup="btnAddArea"
+                                ValidationGroup="aa"
                                 runat="server"
                                 ControlToValidate="txtArea"
                                 ErrorMessage="Enter Data">
@@ -61,14 +63,14 @@
                 </asp:RegularExpressionValidator>
                 <br />
                 <br />
-                <asp:Button ID="btnAddArea" runat="server" Text="Add Area" OnClientClick="return confirm('sure?');" OnClick="btnAddArea_Click" />
-            </ContentTemplate>
-        </asp:UpdatePanel>
+                <asp:Button ID="btnAddArea" runat="server" ValidationGroup="aa" Text="Add Area" OnClick="btnAddArea_Click" />
+       <%--     </ContentTemplate>
+        </asp:UpdatePanel>--%>
         <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
             <Columns>
                 <asp:TemplateField HeaderText="Id" Visible="false">
                     <ItemTemplate>
-                        <asp:Label ID="gvlblId" Text='<%# Eval("Id") %>' runat="server" />
+                        <asp:Label ID="lid" runat="server" Text='<%# Eval("Id") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="State">
@@ -82,7 +84,8 @@
                             ControlToValidate="eddlState"
                             ErrorMessage="Select State">
                         </asp:RequiredFieldValidator>
-                        <asp:SqlDataSource ID="SqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:conString%>" ProviderName="<%$ ConnectionStrings:conString.ProviderName %>" SelectCommand="SELECT * FROM [tblState]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:conString%>" ProviderName="<%$ ConnectionStrings:conString.ProviderName %>" SelectCommand="SELECT * FROM [tblState]"></asp:SqlDataSource>
+
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="City">
@@ -96,7 +99,8 @@
                             ControlToValidate="eddlCity"
                             ErrorMessage="Select City">
                         </asp:RequiredFieldValidator>
-                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:conString%>" ProviderName="<%$ ConnectionStrings:conString.ProviderName %>" SelectCommand="SELECT * FROM [tblCity]"></asp:SqlDataSource>
+                                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:conString%>" ProviderName="<%$ ConnectionStrings:conString.ProviderName %>" SelectCommand="SELECT * FROM [tblCity]"></asp:SqlDataSource>
+
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Area">

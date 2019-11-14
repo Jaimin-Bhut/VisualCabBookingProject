@@ -49,43 +49,53 @@ public partial class AddCity : System.Web.UI.Page
             ddlState.DataTextField = "State";
             ddlState.DataValueField = "Id";
             ddlState.DataBind();
-            ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
+            ddlState.Items.Insert(0, new ListItem("--Select State--", "-1"));
+            con.Close();
             disp();
         }
     }
     protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
     {
-        con.Open();
-        SqlCommand cmd = new SqlCommand("Select State,s.Id,City from tblState s,tblCity c where s.Id=c.State_id and c.State_id ='" + ddlState.SelectedValue.ToString() + "'", con);
-        SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
-        DataTable dt = new DataTable();
-        Adpt.Fill(dt);
-        gvData.DataSource = dt;
-        gvData.DataBind();
-        con.Close();
+        //con.Open();
+        //SqlCommand cmd = new SqlCommand("Select State,s.Id,City from tblState s,tblCity c where s.Id=c.State_id and c.State_id ='" + ddlState.SelectedValue.ToString() + "'", con);
+        //SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
+        //DataTable dt = new DataTable();
+        //Adpt.Fill(dt);
+        //gvData.DataSource = dt;
+        //gvData.DataBind();
+        //con.Close();
     }
     protected void btnAddCity_Click(object sender, EventArgs e)
     {
-        con.Open();
-        SqlCommand cmd = new SqlCommand("select count(*) from tblCity where State_id ='" + ddlState.SelectedValue.ToString() + "' and City ='" + txtCity.Text + "'", con);
-        int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
-        if (c1 == 1)
+        try
         {
-            Response.Write("City is Already Exist");
+            con.Open();
+            SqlCommand cmd = new SqlCommand("select count(*) from tblCity where State_id ='" + ddlState.SelectedValue.ToString() + "' and City ='" + txtCity.Text + "'", con);
+            int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
+            if (c1 == 1)
+            {
+                lblMessage.Text = "City is Already Exist";
+                txtCity.Text = String.Empty;
+                ddlState.SelectedIndex = 0;
 
+            }
+            else
+            {
+                SqlCommand cmd1 = new SqlCommand("insert into tblCity values(@state,@city)", con);
+                cmd1.Parameters.AddWithValue("@state", SqlDbType.Int).Value = ddlState.SelectedValue;
+                cmd1.Parameters.AddWithValue("@city", SqlDbType.VarChar).Value = txtCity.Text.Trim().ToUpper();
+                cmd1.ExecuteNonQuery();
+                lblMessage.Text = "Data Inserted Succesfully";
+                txtCity.Text = String.Empty;
+                ddlState.SelectedIndex = 0;
+                con.Close();
+            }
         }
-        else
+        catch (Exception ee)
         {
-            SqlCommand cmd1 = new SqlCommand("insert into tblCity values(@state,@city)", con);
-            cmd1.Parameters.AddWithValue("@state", SqlDbType.Int).Value = ddlState.SelectedValue;
-            cmd1.Parameters.AddWithValue("@city", SqlDbType.VarChar).Value = txtCity.Text.Trim().ToUpper();
-            cmd1.ExecuteNonQuery();
-            Response.Write("Data Inserted Succesfully");
-           disp();
-
+            Response.Write(ee);
         }
-        con.Close();
-
+        disp();
     }
     protected void gvData_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     {
@@ -126,24 +136,26 @@ public partial class AddCity : System.Web.UI.Page
     }
     protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        /*try
+        if (Page.IsPostBack)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            con.Open();
-            DropDownList DropDownList1 = (e.Row.FindControl("eddlState") as DropDownList);
-            SqlCommand cmd = new SqlCommand("select * from tblState", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            DropDownList1.DataSource = dt;
-            DropDownList1.DataValueField = "Id";
-            DropDownList1.DataTextField = "State";
-            DropDownList1.DataBind();
-            con.Close();
+            try
+            {
+                DropDownList DropDownList1 = (e.Row.FindControl("eddlState") as DropDownList);
+                SqlCommand cmd = new SqlCommand("select * from tblState", con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt1 = new DataTable();
+                da.Fill(dt1);
+                DropDownList1.DataSource = dt1;
+                DropDownList1.DataValueField = "Id";
+                DropDownList1.DataTextField = "State";
+                DropDownList1.DataBind();
+               
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex);
+            }
         }
-        catch (Exception ex)
-        {
-            Response.Write(ex);
-        }*/
     }
 }

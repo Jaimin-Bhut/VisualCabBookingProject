@@ -18,29 +18,10 @@
                     <td>
                         <ul>
                             <li>
-                                <asp:HyperLink runat="server" Text="HOME" ID="linkHome" NavigateUrl="~/AdminMain.aspx"></asp:HyperLink>
-                            </li>
-                            <li>
-                                <asp:HyperLink ID="linkBookCab" runat="server" Text="Book Cab"></asp:HyperLink>
+                                <asp:HyperLink runat="server" Text="HOME" ID="linkHome" NavigateUrl="~/BookCabPage.aspx"></asp:HyperLink>
                             </li>
                             <li>
                                 <asp:HyperLink ID="linkFeedback" runat="server" Text="Feedback" NavigateUrl="~/Feedback.aspx"></asp:HyperLink>
-                            </li>
-                            <li><a href="#">Login</a>
-                                <ul>
-                                    <li>
-                                        <asp:HyperLink ID="linkAdminSignIn" runat="server" Text="ADMIN" NavigateUrl="~/AdminSignIn.aspx"></asp:HyperLink>
-
-                                    </li>
-                                    <li>
-                                        <asp:HyperLink ID="linkUserSignIn" runat="server" Text="USER" NavigateUrl="~/UserSignIn.aspx"></asp:HyperLink>
-
-                                    </li>
-                                    <li>
-                                        <asp:HyperLink ID="linkDriverSignIn" runat="server" Text="DRIVER"></asp:HyperLink>
-
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </td>

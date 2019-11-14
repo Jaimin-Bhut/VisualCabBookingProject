@@ -10,6 +10,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="Css/Style.css" rel="stylesheet" />
     <div class="login-box">
+        <%-- <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>--%>
         <center> <asp:Label ID="lblHeading" Text="ADD DRIVER" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></center>
 
         <table class="auto-style1">
@@ -176,7 +179,9 @@
                 </td>
             </tr>
         </table>
-        <asp:GridView ID="gvData" DataKeyNames="Driver_Email" runat="server" AutoGenerateColumns="False"  OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
+        <%--                </ContentTemplate>
+            </asp:UpdatePanel>--%>
+        <asp:GridView ID="gvData" DataKeyNames="Driver_Email" runat="server" AutoGenerateColumns="False" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
             <Columns>
                 <asp:TemplateField HeaderText="Picture" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
@@ -192,48 +197,48 @@
                             ErrorMessage="* Select Image">
                         </asp:RequiredFieldValidator>--%>
                     </EditItemTemplate>
-
                 </asp:TemplateField>
+
                 <asp:TemplateField HeaderText="Driver Name" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="lblD_name" runat="server" Text='<%# Eval("Driver_Name") %>'></asp:Label>
+                        <asp:Label ID="gvlblD_name" runat="server" Text='<%# Eval("Driver_Name") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtD_name" runat="server" Text='<%# Eval("Driver_Name") %>'></asp:TextBox>
+                        <asp:TextBox ID="gvtxtD_name" runat="server" Text='<%# Eval("Driver_Name") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator
                             ID="gvValidationName"
                             runat="server"
                             ValidationGroup="bb"
-                            ControlToValidate="txtD_name"
+                            ControlToValidate="gvtxtD_name"
                             ErrorMessage="* Enter Name" />
 
                         <asp:RegularExpressionValidator
                             ID="gvvalidationDriverName"
                             runat="server"
                             ErrorMessage="Only characters allowed"
-                            ControlToValidate="txtD_name"
+                            ControlToValidate="gvtxtD_name"
                             ValidationExpression="^[A-Za-z ]*$">
                         </asp:RegularExpressionValidator>
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Driver Address" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="lblD_address" runat="server" Text='<%# Eval("Driver_Address") %>'></asp:Label>
+                        <asp:Label ID="gvlblD_address" runat="server" Text='<%# Eval("Driver_Address") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtD_address" runat="server" Text='<%# Eval("Driver_Address") %>'></asp:TextBox>
+                        <asp:TextBox ID="gvtxtD_address" runat="server" Text='<%# Eval("Driver_Address") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator
                             ID="gvValidationAddress"
                             runat="server"
                             ValidationGroup="bb"
-                            ControlToValidate="txtD_address"
+                            ControlToValidate="gvtxtD_address"
                             ErrorMessage="* Enter Name" />
 
                         <asp:RegularExpressionValidator
                             ID="gvvalidationDriverAddress"
                             runat="server"
                             ErrorMessage="Only characters allowed"
-                            ControlToValidate="txtD_address"
+                            ControlToValidate="gvtxtD_address"
                             ValidationExpression="^[A-Za-z ]*$">
                         </asp:RegularExpressionValidator>
                     </EditItemTemplate>
@@ -244,13 +249,13 @@
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:DropDownList ID="gvddlCity" runat="server">
-                            <asp:ListItem Text="--Select--" Enabled="false" Value="0" Selected="True"/>
-                            <asp:ListItem Text="SURAT" Value="100"/>
-                            <asp:ListItem Text="RAJKOT" Value="101"/>
-                            <asp:ListItem Text="MUMBAI" Value="102"/>
-                            <asp:ListItem Text="PUNE" Value="103"/>
+                            <asp:ListItem Text="--Select--" Enabled="false" Value="0" Selected="True" />
+                            <asp:ListItem Text="SURAT" Value="100" />
+                            <asp:ListItem Text="RAJKOT" Value="101" />
+                            <asp:ListItem Text="MUMBAI" Value="102" />
+                            <asp:ListItem Text="PUNE" Value="103" />
                         </asp:DropDownList>
-<%--                        <asp:TextBox ID="txtD_city" runat="server" Text='<%# Eval("City") %>'></asp:TextBox>--%>
+                        <%--                        <asp:TextBox ID="txtD_city" runat="server" Text='<%# Eval("City") %>'></asp:TextBox>--%>
                         <asp:RequiredFieldValidator
                             ID="gvValidationCity"
                             runat="server"
@@ -261,59 +266,45 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Driver Contact" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="lblD_contact" runat="server" Text='<%# Eval("Driver_Contact") %>'></asp:Label>
+                        <asp:Label ID="gvlblD_contact" runat="server" Text='<%# Eval("Driver_Contact") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtD_contact" runat="server" Text='<%# Eval("Driver_Contact") %>'></asp:TextBox>
+                        <asp:TextBox ID="gvtxtD_contact" runat="server" Text='<%# Eval("Driver_Contact") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator
                             ID="gvValidatioContact"
                             runat="server"
                             ValidationGroup="bb"
-                            ControlToValidate="txtD_contact"
+                            ControlToValidate="gvtxtD_contact"
                             ErrorMessage="* Enter Name" />
 
                         <asp:RegularExpressionValidator
                             ID="gvvalidationDriverContact"
                             runat="server"
                             ErrorMessage="Only characters allowed"
-                            ControlToValidate="txtD_contact"
+                            ControlToValidate="gvtxtD_contact"
                             ValidationExpression="^9\d{9}$">
                         </asp:RegularExpressionValidator>
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Driver Email" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="lblD_email" runat="server" Text='<%# Eval("Driver_Email") %>'></asp:Label>
+                        <asp:Label ID="gvlblD_email" runat="server" Text='<%# Eval("Driver_Email") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtD_email" runat="server" Text='<%# Eval("Driver_Email") %>'></asp:TextBox>
-                        <asp:RequiredFieldValidator
-                            ID="gvValidationEmail"
-                            runat="server"
-                            ValidationGroup="bb"
-                            ControlToValidate="txtD_email"
-                            ErrorMessage="* Enter email" />
-
-                        <asp:RegularExpressionValidator
-                            ID="gvvalidationDriverEmail"
-                            runat="server"
-                            ErrorMessage="Only characters allowed"
-                            ControlToValidate="txtD_email"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
-                        </asp:RegularExpressionValidator>
+                        <asp:TextBox ID="gvtxtD_email" runat="server" ReadOnly="true" Text='<%# Eval("Driver_Email") %>'></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Cab ID" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
-                        <asp:Label ID="lblC_id" runat="server" Text='<%# Eval("Cab_Id") %>'></asp:Label>
+                        <asp:Label ID="gvlblC_id" runat="server" Text='<%# Eval("Cab_Id") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtC_id" runat="server" Text='<%# Eval("Cab_Id") %>'></asp:TextBox>
+                        <asp:TextBox ID="gvtxtC_id" runat="server" Text='<%# Eval("Cab_Id") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator
                             ID="gvValidationCId"
                             runat="server"
                             ValidationGroup="bb"
-                            ControlToValidate="txtC_id"
+                            ControlToValidate="gvtxtC_id"
                             ErrorMessage="* Enter Cab id" />
                     </EditItemTemplate>
                 </asp:TemplateField>
@@ -323,14 +314,11 @@
                         <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/icon/delete_icon.png" BackColor="White" CommandName="Delete" ToolTip="Delete" Height="16px" Width="16px"></asp:ImageButton>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:ImageButton ID="ImageButton3" runat="server" ValidationGroup="bb"
-                            ImageUrl="~/icon/update_icon.png" CommandName="Update" BackColor="White" ToolTip="Update" Height="16px" Width="16px"></asp:ImageButton>
+                        <asp:ImageButton ID="ImageButton3" runat="server" ValidationGroup="bb" ImageUrl="~/icon/update_icon.png" CommandName="Update" BackColor="White" ToolTip="Update" Height="16px" Width="16px"></asp:ImageButton>
                         <asp:ImageButton ID="ImageButton4" runat="server" ImageUrl="~/icon/cancel.png" BackColor="White" CommandName="Cancel" ToolTip="Cencle" Height="16px" Width="16px"></asp:ImageButton>
                     </EditItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-
     </div>
 </asp:Content>
-

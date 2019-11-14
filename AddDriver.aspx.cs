@@ -57,6 +57,7 @@ public partial class AddDriver : System.Web.UI.Page
             ddlCity.DataTextField = "City";
             ddlCity.DataValueField = "Id";
             ddlCity.DataBind();
+            ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
             disp();
             Cab();
         }
@@ -96,15 +97,21 @@ public partial class AddDriver : System.Web.UI.Page
         {
             string UpdateId = (gvData.DataKeys[e.RowIndex].Value.ToString());
             FileUpload Fu=(FileUpload)(gvData.Rows[e.RowIndex].FindControl("gvFileUpload"));
-            string img = (gvData.Rows[e.RowIndex].FindControl("gvFileUpload") as System.Web.UI.WebControls.FileUpload).FileName;
-            string address = (gvData.Rows[e.RowIndex].FindControl("txtD_address") as System.Web.UI.WebControls.TextBox).Text;
+            string address = (gvData.Rows[e.RowIndex].FindControl("gvtxtD_address") as System.Web.UI.WebControls.TextBox).Text;
+            string name = (gvData.Rows[e.RowIndex].FindControl("gvtxtD_name") as System.Web.UI.WebControls.TextBox).Text;
             string city = (gvData.Rows[e.RowIndex].FindControl("gvddlCity") as DropDownList).SelectedValue.ToString();
-            string contact = (gvData.Rows[e.RowIndex].FindControl("txtD_contact") as System.Web.UI.WebControls.TextBox).Text;
+            string contact = (gvData.Rows[e.RowIndex].FindControl("gvtxtD_contact") as System.Web.UI.WebControls.TextBox).Text;
+            string cab = (gvData.Rows[e.RowIndex].FindControl("gvtxtC_id") as System.Web.UI.WebControls.TextBox).Text;
             con.Open();
-            SqlCommand cmd = new SqlCommand("update tblDriver set Driver_img='" + Fu.FileName + "',Driver_Address ='" + address + "',Driver_City='" + city + "',Driver_Contact ='" + contact + "' where Driver_Email='" + UpdateId + "'", con);
+            SqlCommand cmd = new SqlCommand("update tblDriver set Driver_img=@dimg,Driver_Name=@dname,Driver_Address=@dadd,Driver_City=@dcity,Driver_Contact=@dcontact,Cab_Id=@cabid where Driver_Email='" + UpdateId + "'", con);
+            cmd.Parameters.Add("@dimg", SqlDbType.NVarChar).Value = "~/Upload/" + Fu.FileName;
+            cmd.Parameters.Add("@dname", SqlDbType.VarChar).Value = name.Trim().ToUpper();
+            cmd.Parameters.Add("@dadd", SqlDbType.VarChar).Value = address.Trim().ToUpper();
+            cmd.Parameters.Add("@dcity", SqlDbType.Int).Value = city;
+            cmd.Parameters.Add("@dcontact", SqlDbType.NVarChar).Value = contact;
+            cmd.Parameters.Add("@cabid", SqlDbType.NVarChar).Value = cab;
             cmd.ExecuteNonQuery();
-            FileUpload1.SaveAs(Server.MapPath("~/Upload/") + FileUpload1.FileName);
-
+            Fu.SaveAs(Server.MapPath("~/Upload/") + Fu.FileName);
             con.Close();
             gvData.EditIndex = -1;
             disp();

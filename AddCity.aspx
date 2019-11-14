@@ -6,10 +6,12 @@
     <br />
     <link href="Css/Style.css" rel="stylesheet" />
     <div class="login-box">
-        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+       <%-- <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>
+            <ContentTemplate>--%>
                 <center> <asp:Label ID="lblHeading" Text="ADD CITY" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></center>
+                <br />
+                <center><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></center>
                 <br />
                 <asp:Label ID="lblState" runat="server" Text="State"></asp:Label>
                 <asp:DropDownList runat="server"
@@ -20,9 +22,9 @@
                 <asp:RequiredFieldValidator
                     ID="fieldValidationState"
                     runat="server"
-                    ValidationGroup="btnAddCity"
+                    ValidationGroup="aa"
                     ControlToValidate="ddlState"
-                    ErrorMessage="Enter City">
+                    ErrorMessage="Select State" InitialValue="-1">
                 </asp:RequiredFieldValidator>
                 <br />
                 <br />
@@ -31,7 +33,7 @@
                 <asp:RequiredFieldValidator
                     ID="rValidationCity"
                     runat="server"
-                    ValidationGroup="btnAddCity"
+                    ValidationGroup="aa"
                     ControlToValidate="txtCity"
                     ErrorMessage="* Enter City">
                 </asp:RequiredFieldValidator>
@@ -44,11 +46,11 @@
                 </asp:RegularExpressionValidator>
                 <br />
                 <br />
-                <asp:Button ID="btnAddCity" runat="server" Text="Add City" OnClientClick="return confirm('sure?');" OnClick="btnAddCity_Click" Style="height: 29px" />
+                <asp:Button ID="btnAddCity" runat="server" ValidationGroup="aa" Text="Add City" OnClick="btnAddCity_Click" Style="height: 29px" />
                 <br />
                 <br />
-            </ContentTemplate>
-        </asp:UpdatePanel>
+       <%--     </ContentTemplate>
+        </asp:UpdatePanel>--%>
         <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
             <Columns>
                 <asp:TemplateField HeaderText="Id" Visible="false" ControlStyle-Font-Size="Smaller">
@@ -61,11 +63,10 @@
                         <asp:Label ID="lblState" runat="server" Text='<%# Eval("State") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:DropDownList runat="server" ID="eddlState">
-                            <asp:ListItem Text="--Select--" Value="0" Selected="True" />
+                        <asp:DropDownList runat="server" ID="eddlState" />
+                        <%--<asp:ListItem Text="--Select--" Value="0" Selected="True" />
                             <asp:ListItem Text="GUJRAT" Value="21" />
-                            <asp:ListItem Text="MAHARASHTRA" Value="22" />
-                        </asp:DropDownList>
+                            <asp:ListItem Text="MAHARASHTRA" Value="22" />--%>
                     </EditItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="City" ControlStyle-Font-Size="Smaller">

@@ -12,6 +12,8 @@ using System.Windows.Forms;
 
 public partial class AddCab : System.Web.UI.Page
 {
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+
     protected void Page_PreInit(object sender, EventArgs e)
     {
         this.MasterPageFile = "~/MasterPage1.master";
@@ -21,7 +23,6 @@ public partial class AddCab : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             SqlCommand cmd = new SqlCommand("select * from tblCity ", con);
             SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -51,7 +52,6 @@ public partial class AddCab : System.Web.UI.Page
     }
     void city()
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         SqlCommand cmd = new SqlCommand("select * from tblCity", con);
         SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();
@@ -67,7 +67,6 @@ public partial class AddCab : System.Web.UI.Page
         try
         {
             DropDownList gvddlWorkingCity = (FindControl("gvddlWorkingCity") as DropDownList);
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             SqlCommand cmd = new SqlCommand("Select c.*,City from tblCab c,tblCity ci where c.Working_City=ci.Id", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt1 = new DataTable();
@@ -85,7 +84,6 @@ public partial class AddCab : System.Web.UI.Page
     {
         try
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
             SqlCommand cmd = new SqlCommand("insert into tblCab values('" + txtCabNo.Text.Trim().ToUpper() + "','" + txtCabName.Text.Trim().ToUpper() + "','" + ddlCabType.SelectedValue.Trim().ToUpper() + "','" + txtPerCapacity.Text.Trim() + "','" + txtLuggCapacity.Text.Trim() + "','" + ddlCity.SelectedValue + "','Available')", con);
             cmd.ExecuteNonQuery();
@@ -111,17 +109,16 @@ public partial class AddCab : System.Web.UI.Page
     {
         try
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            con.Open();
+            
             DropDownList gvddlCity = (e.Row.FindControl("gvddlWorkingCity") as DropDownList);
             SqlCommand cmd = new SqlCommand("select * from tblCity", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
             //    gvddlCity.DataSource = dt;
-            gvddlCity.DataValueField = "Id";
-            gvddlCity.DataTextField = "City";
-            gvddlCity.DataBind();
+            //gvddlCity.DataValueField = "Id";
+            //gvddlCity.DataTextField = "City";
+            //gvddlCity.DataBind();
             con.Close();
         }
         catch (Exception ex)
@@ -140,7 +137,6 @@ public partial class AddCab : System.Web.UI.Page
         try
         {
             int DelId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             con.Open();
             SqlCommand cmd = new SqlCommand("delete from tblCab Where Cab_Id=" + DelId, con);
             cmd.ExecuteNonQuery();
@@ -162,7 +158,6 @@ public partial class AddCab : System.Web.UI.Page
         try
         {
             string UpdateId = gvData.DataKeys[e.RowIndex].Value.ToString();
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             DropDownList City = gvData.Rows[e.RowIndex].FindControl("gvddlWorkingCity") as DropDownList;
             DropDownList Cab_type = gvData.Rows[e.RowIndex].FindControl("gvddlCabType") as DropDownList;
             DropDownList Status = gvData.Rows[e.RowIndex].FindControl("gvddlStatus") as DropDownList;

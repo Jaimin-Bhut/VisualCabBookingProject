@@ -10,10 +10,12 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <center> <asp:Label ID="lblHeading" Text="ADD STATE" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></center>
+                <center>   <asp:Label runat="server" Text="" ID="lblMessage"/></center>
+
                 <br />
                 <asp:Label runat="server" Text="State" ID="lblState"></asp:Label>
                 <asp:TextBox runat="server" ID="txtState"></asp:TextBox>
-                <asp:Button runat="server" ID="btnAddState" ValidationGroup="aa" Text="Add State" OnClientClick="return confirm('sure?');" OnClick="btnAddState_Click" />
+                <asp:Button runat="server" ID="btnAddState" ValidationGroup="aa" Text="Add State" OnClick="btnAddState_Click" />
                 <br />
                 <asp:RequiredFieldValidator
                     ID="rValidationState"

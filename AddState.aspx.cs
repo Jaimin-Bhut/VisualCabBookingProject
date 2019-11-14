@@ -27,7 +27,6 @@ public partial class AddLocatality : System.Web.UI.Page
         gvData.DataSource = Dt;
         gvData.DataBind();
         con.Close();
-
     }
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -47,7 +46,8 @@ public partial class AddLocatality : System.Web.UI.Page
             int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
             if (c1 == 1)
             {
-                Response.Write("State is Already Exist");
+                lblMessage.Text="State is Already Exist";
+                txtState.Text = String.Empty;
 
             }
             else
@@ -55,8 +55,8 @@ public partial class AddLocatality : System.Web.UI.Page
                 SqlCommand cmd1 = new SqlCommand("insert into tblState values (@state)", con);
                 cmd1.Parameters.AddWithValue("@state",SqlDbType.VarChar).Value=txtState.Text.Trim().ToUpper();
                 cmd1.ExecuteNonQuery();
-               MessageBox.Show("Data Inserted Succesfully");
-
+                lblMessage.Text = "Data Inserted Succesfully";
+                txtState.Text = String.Empty;
             }
             con.Close();
         }
