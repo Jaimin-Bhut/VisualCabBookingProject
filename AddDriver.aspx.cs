@@ -48,18 +48,25 @@ public partial class AddDriver : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlCommand cmd = new SqlCommand("select * from tblCity ", con);
-            SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            Adpt.Fill(dt);
-            ddlCity.DataSource = dt;
-            ddlCity.DataBind();
-            ddlCity.DataTextField = "City";
-            ddlCity.DataValueField = "Id";
-            ddlCity.DataBind();
-            ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
-            disp();
-            Cab();
+            if (Page.Session["email"] == null)
+            {
+                Response.Redirect("AdminSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("select * from tblCity ", con);
+                SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                Adpt.Fill(dt);
+                ddlCity.DataSource = dt;
+                ddlCity.DataBind();
+                ddlCity.DataTextField = "City";
+                ddlCity.DataValueField = "Id";
+                ddlCity.DataBind();
+                ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+                disp();
+                Cab();
+            }
         }
     }
     protected void ddlCity_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,6 +96,8 @@ public partial class AddDriver : System.Web.UI.Page
         cmd.ExecuteNonQuery();
         FileUpload1.SaveAs(Server.MapPath("~/Upload/") + FileUpload1.FileName);
         MessageBox.Show("Record Inserted");
+        con.Close();
+        disp();
     }
 
     protected void gvData_RowUpdating(object sender, GridViewUpdateEventArgs e)

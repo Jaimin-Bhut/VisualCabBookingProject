@@ -8,8 +8,26 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
     <link href="Css/Style.css" rel="stylesheet" />
+    <link href="Css/StyleSheet.css" rel="stylesheet" />
+    <div>
+        <table>
+            <tr style="width: 1100px; height: 50px">
+                <td>
+                    <ul>
+                        <li>
+                            <asp:HyperLink ID="linkFeedback" runat="server" Text="Feedback" NavigateUrl="~/Feedback.aspx"></asp:HyperLink>
+
+                        </li>
+                        <li>
+                            <asp:Button ID="btnLogOut" runat="server" CssClass="button" Text="Sign Out" OnClick="btnLogOut_Click"/>
+
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div class="login-box">
         <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel" runat="server">
@@ -28,8 +46,23 @@
                         <td>
                             <asp:Label ID="lblCity" runat="server" Text="Select City"></asp:Label></td>
                         <td>
-                            <asp:DropDownList ID="ddlCity" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged"></asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rValidationCity" ValidationGroup="aa" runat="server" ControlToValidate="ddlCity" ErrorMessage="Select City"></asp:RequiredFieldValidator></td>
+                            <asp:DropDownList
+                                ID="ddlCity"
+                                runat="server"
+                                AutoPostBack="true"
+                                OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator
+                                ID="rValidationCity"
+                                ValidationGroup="aa"
+                                runat="server"
+                                InitialValue="-1"
+                                ControlToValidate="ddlCity"
+                                ErrorMessage="Select City">
+
+                            </asp:RequiredFieldValidator>
+
+                        </td>
 
                     </tr>
                     <tr>
@@ -37,7 +70,7 @@
                             <asp:Label ID="lblCabType" runat="server" Text="Select Cab"></asp:Label></td>
                         <td>
                             <asp:DropDownList ID="ddlCabType" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCabType_SelectedIndexChanged"></asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rValidationCabType" ValidationGroup="aa" runat="server" ControlToValidate="ddlCabType" ErrorMessage="Select Cab"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rValidationCabType" InitialValue="-1" ValidationGroup="aa" runat="server" ControlToValidate="ddlCabType" ErrorMessage="Select Cab"></asp:RequiredFieldValidator>
 
                         </td>
                     </tr>
@@ -50,6 +83,7 @@
                                 ID="rValidationPickUp"
                                 ValidationGroup="aa"
                                 runat="server"
+                                InitialValue="-1"
                                 ControlToValidate="ddlPickUp"
                                 ErrorMessage="Select Pick-Up Area">
                             </asp:RequiredFieldValidator>
@@ -63,6 +97,7 @@
                                 ID="rValidationDrop"
                                 ValidationGroup="aa"
                                 runat="server"
+                                InitialValue="-1"
                                 ControlToValidate="ddlDrop"
                                 ErrorMessage="Select Drop Area">
                             </asp:RequiredFieldValidator>
@@ -137,56 +172,6 @@
                                 <asp:ListItem>11:30 PM</asp:ListItem>
 
                             </asp:DropDownList>
-                            <%--<select id="ddlTime" runat="server">
-                                <option selected="" value="00:00 AM">00:00 AM</option>
-                                <option value="00:30 AM">00:30 AM</option>
-                                <option value="01:00 AM">01:00 AM</option>
-                                <option value="01:30 AM">01:30 AM</option>
-                                <option value="02:00 AM">02:00 AM</option>
-                                <option value="02:30 AM">02:30 AM</option>
-                                <option value="03:00 AM">03:00 AM</option>
-                                <option value="03:30 AM">03:30 AM</option>
-                                <option value="04:00 AM">04:00 AM</option>
-                                <option value="04:30 AM">04:30 AM</option>
-                                <option value="05:00 AM">05:00 AM</option>
-                                <option value="05:30 AM">05:30 AM</option>
-                                <option value="06:00 AM">06:00 AM</option>
-                                <option value="06:30 AM">06:30 AM</option>
-                                <option value="07:00 AM">07:00 AM</option>
-                                <option value="07:30 AM">07:30 AM</option>
-                                <option value="08:00 AM">08:00 AM</option>
-                                <option value="08:30 AM">08:30 AM</option>
-                                <option value="09:00 AM">09:00 AM</option>
-                                <option value="09:30 AM">09:30 AM</option>
-                                <option value="10:00 AM">10:00 AM</option>
-                                <option value="10:30 AM">10:30 AM</option>
-                                <option value="11:00 AM">11:00 AM</option>
-                                <option value="11:30 AM">11:30 AM</option>
-                                <option value="12:00 PM">12:00 PM</option>
-                                <option value="12:30 PM">12:30 PM</option>
-                                <option value="01:00 PM">01:00 PM</option>
-                                <option value="01:30 PM">01:30 PM</option>
-                                <option value="02:00 PM">02:00 PM</option>
-                                <option value="02:30 PM">02:30 PM</option>
-                                <option value="03:00 PM">03:00 PM</option>
-                                <option value="03:30 PM">03:30 PM</option>
-                                <option value="04:00 PM">04:00 PM</option>
-                                <option value="04:30 PM">04:30 PM</option>
-                                <option value="05:00 PM">05:00 PM</option>
-                                <option value="05:30 PM">05:30 PM</option>
-                                <option value="06:00 PM">06:00 PM</option>
-                                <option value="06:30 PM">06:30 PM</option>
-                                <option value="07:00 PM">07:00 PM</option>
-                                <option value="07:30 PM">07:30 PM</option>
-                                <option value="08:00 PM">08:00 PM</option>
-                                <option value="08:30 PM">08:30 PM</option>
-                                <option value="09:00 PM">09:00 PM</option>
-                                <option value="09:30 PM">09:30 PM</option>
-                                <option value="10:00 PM">10:00 PM</option>
-                                <option value="10:30 PM">10:30 PM</option>
-                                <option value="11:00 PM">11:00 PM</option>
-                                <option value="11:30 PM">11:30 PM</option>
-                            </select>--%>
                             <asp:RequiredFieldValidator
                                 ID="rValidationTime"
                                 ValidationGroup="aa"

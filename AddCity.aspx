@@ -6,9 +6,9 @@
     <br />
     <link href="Css/Style.css" rel="stylesheet" />
     <div class="login-box">
-       <%-- <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>--%>
+            <ContentTemplate>
                 <center> <asp:Label ID="lblHeading" Text="ADD CITY" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></center>
                 <br />
                 <center><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></center>
@@ -49,8 +49,8 @@
                 <asp:Button ID="btnAddCity" runat="server" ValidationGroup="aa" Text="Add City" OnClick="btnAddCity_Click" Style="height: 29px" />
                 <br />
                 <br />
-       <%--     </ContentTemplate>
-        </asp:UpdatePanel>--%>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
             <Columns>
                 <asp:TemplateField HeaderText="Id" Visible="false" ControlStyle-Font-Size="Smaller">

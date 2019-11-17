@@ -1,11 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage1.master" AutoEventWireup="true" CodeFile="DriverDashboard.aspx.cs" Inherits="DriverDashboard" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="Css/Style.css" rel="stylesheet" />
+    <link href="Css/StyleSheet.css" rel="stylesheet" />
+    <div>
+        <table>
+            <tr style="width: 1100px; height: 50px">
+                <td>
+                    <ul>
+                        <li>
+                            <asp:Button ID="btnLogOut" runat="server" CssClass="button" Text="Sign Out" OnClick="btnLogOut_Click"/>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div class="login-box">
-    <asp:GridView ID="gvData" DataKeyNames="Booking_id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
+        <asp:GridView ID="gvData" DataKeyNames="Booking_id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
             <Columns>
                 <asp:TemplateField HeaderText="Booking-ID" ControlStyle-Font-Size="Smaller">
                     <ItemTemplate>
@@ -64,7 +78,6 @@
                         </asp:DropDownList>
                     </EditItemTemplate>
                 </asp:TemplateField>
-
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/icon/edit_icon.png" BackColor="White" CommandName="Edit" ToolTip="Edit" Height="16px" Width="16px"></asp:ImageButton>
@@ -77,6 +90,6 @@
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-        </div>
+    </div>
 </asp:Content>
 

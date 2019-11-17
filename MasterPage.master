@@ -18,10 +18,7 @@
                     <td>
                         <ul>
                             <li>
-                                <asp:HyperLink runat="server" Text="HOME" ID="linkHome" NavigateUrl="~/BookCabPage.aspx"></asp:HyperLink>
-                            </li>
-                            <li>
-                                <asp:HyperLink ID="linkFeedback" runat="server" Text="Feedback" NavigateUrl="~/Feedback.aspx"></asp:HyperLink>
+                                <asp:HyperLink ID="linkFeedback" runat="server"  Visible="false" Text="Feedback" NavigateUrl="~/Feedback.aspx"></asp:HyperLink>
                             </li>
                         </ul>
                     </td>

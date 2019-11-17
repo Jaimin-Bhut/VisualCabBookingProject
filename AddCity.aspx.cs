@@ -40,18 +40,25 @@ public partial class AddCity : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlCommand cmd = new SqlCommand("select * from tblState ", con);
-            SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            Adpt.Fill(dt);
-            ddlState.DataSource = dt;
-            ddlState.DataBind();
-            ddlState.DataTextField = "State";
-            ddlState.DataValueField = "Id";
-            ddlState.DataBind();
-            ddlState.Items.Insert(0, new ListItem("--Select State--", "-1"));
-            con.Close();
-            disp();
+            if (Page.Session["email"] == null)
+            {
+                Response.Redirect("AdminSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("select * from tblState ", con);
+                SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                Adpt.Fill(dt);
+                ddlState.DataSource = dt;
+                ddlState.DataBind();
+                ddlState.DataTextField = "State";
+                ddlState.DataValueField = "Id";
+                ddlState.DataBind();
+                ddlState.Items.Insert(0, new ListItem("--Select State--", "-1"));
+                con.Close();
+                disp();
+            }
         }
     }
     protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)

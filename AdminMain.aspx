@@ -21,7 +21,7 @@
                     <asp:Label ID="lblAddCity" runat="server" Text="Add City"></asp:Label>
                 </td>
 
-           
+
                 <td>
                     <asp:ImageButton CssClass="img" ID="imgbtnAddArea" runat="server" ImageUrl="~/icon/addArea_icon.png" BackColor="White" Height="75px" Width="75px" OnClick="imgbtnAddArea_Click" ToolTip="Add Area" /><br />
                     <asp:Label ID="lblAddArea" runat="server" Text="Add Area"></asp:Label>
@@ -32,12 +32,8 @@
                     <asp:Label ID="lblAddCab" runat="server" Text="Add Cab"></asp:Label>
 
                 </td>
-                <td>
-                    <asp:ImageButton CssClass="img" ID="imgbtnFeedback" runat="server" ImageUrl="~/icon/feedback_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="View Feedback" OnClick="imgbtnFeedback_Click" /><br />
-                    <asp:Label ID="lblFeedback" runat="server" Text="Feedback"></asp:Label>
 
-                </td>
-                </tr>
+            </tr>
             <tr>
                 <td>
                     <asp:ImageButton CssClass="img" ID="imgbtnAddDriver" runat="server" ImageUrl="~/icon/addDriver_icon.png" BackColor="White" Height="75px" Width="75px" OnClick="imgbtnAddDriver_Click" ToolTip="Add Driver" /><br />
@@ -50,13 +46,8 @@
 
                 </td>
                 <td>
-                    <asp:ImageButton CssClass="img" ID="imgbtnViewBill" runat="server" ImageUrl="~/icon/viewBooking_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="View Bill" OnClick="imgbtnViewBill_Click" /><br />
-                    <asp:Label ID="lblViewBill" runat="server" Text="View Bill"></asp:Label>
-
-                </td>
-                <td>
-                    <asp:ImageButton CssClass="img" ID="imgbtnClients" runat="server" ImageUrl="~/icon/Clients_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="Clients" /><br />
-                    <asp:Label ID="lblClients" runat="server" Text="Clients Details"></asp:Label>
+                    <asp:ImageButton CssClass="img" ID="imgbtnFeedback" runat="server" ImageUrl="~/icon/feedback_icon.png" BackColor="White" Height="75px" Width="75px" ToolTip="View Feedback" OnClick="imgbtnFeedback_Click" /><br />
+                    <asp:Label ID="lblFeedback" runat="server" Text="Feedback"></asp:Label>
 
                 </td>
                 <td>

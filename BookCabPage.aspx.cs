@@ -45,7 +45,7 @@ public partial class BookCabPage : System.Web.UI.Page
             ddlCity.DataTextField = "City";
             ddlCity.DataValueField = "Id";
             ddlCity.DataBind();
-            ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+            ddlCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
             getData();
         }
     }
@@ -79,7 +79,7 @@ public partial class BookCabPage : System.Web.UI.Page
         ddlPickUp.DataTextField = "Area";
         ddlPickUp.DataValueField = "Id";
         ddlPickUp.DataBind();
-        ddlPickUp.Items.Insert(0, new ListItem("--Select Area--", "0"));
+        ddlPickUp.Items.Insert(0, new ListItem("--Select Area--", "-1"));
         cab();
     }
     protected void ddlCabType_SelectedIndexChanged(object sender, EventArgs e)
@@ -98,10 +98,20 @@ public partial class BookCabPage : System.Web.UI.Page
         ddlDrop.DataTextField = "Area";
         ddlDrop.DataValueField = "Id";
         ddlDrop.DataBind();
-        ddlDrop.Items.Insert(0, new ListItem("--Select Area--", "0"));
+        ddlDrop.Items.Insert(0, new ListItem("--Select Area--", "-1"));
         string selectedArea = ddlPickUp.SelectedItem.Text;
         ddlDrop.Items.FindByText(selectedArea).Enabled = false;
-    }    
+    }
+    void emptyControl()
+    {
+        txtDate.Text = String.Empty;
+        txtPrice.Text = String.Empty;
+        ddlCabType.Items.Clear();
+        ddlCity.SelectedIndex =-1;
+        ddlDrop.Items.Clear();
+        ddlPickUp.Items.Clear();
+        ddlTime.Items.Clear();
+    }
     void showPrice()
     {
         try
@@ -138,8 +148,8 @@ public partial class BookCabPage : System.Web.UI.Page
                         "Drop\t"+ddlDrop.SelectedItem.ToString()+"\n"+
                         "Date\t"+txtDate.Text+"\n"+
                         "Time\t" +ddlTime.SelectedValue.ToString()+ "\n"+
-                        "Distance\t" +distance+ "\n" +
-                        "Price\t"+txtPrice.Text+"\n","",
+                        "Distance\t" +distance+ "KM"+"\n" +
+                        "Price\t"+txtPrice.Text+ "Rs"+"\n","",
                         MessageBoxButtons.OKCancel);
        if (dr == DialogResult.OK)
        {
@@ -159,6 +169,7 @@ public partial class BookCabPage : System.Web.UI.Page
                cmd.Parameters.Add("@distance", SqlDbType.Int).Value =distance;
                cmd.ExecuteNonQuery();
                sendEmail();
+               emptyControl();
                con.Close();
            }
            catch (Exception ex)
@@ -178,10 +189,10 @@ public partial class BookCabPage : System.Web.UI.Page
         showPrice();
     }
     void sendEmail() {
-        string senderEmailId = "bhutjem@gmail.com";
+        string senderEmailId = "jaiminbhut35@gmail.com";
         string password = "fantona#73min";
-        string receiversEmailId = "jaiminbhut7love@gmail.com";
-        // string receiversEmailId = Page.Session["UserEmail"].ToString();
+       // string receiversEmailId = "jaiminbhut7love@gmail.com";
+        string receiversEmailId = Page.Session["UserEmail"].ToString();
         string subject = "Booking Confirm";
         string body = "Journey:\t\t" + ddlPickUp.SelectedItem.ToString() + "   " + "To   " + ddlDrop.SelectedItem.ToString() +
             "\nName:\t\t" + txtUserName.Text +
@@ -189,7 +200,7 @@ public partial class BookCabPage : System.Web.UI.Page
             "\nTime:\t\t" + ddlTime.SelectedItem.ToString() +
             "\nCab Number:\t" + ddlCabType.SelectedValue.ToString() +
             "\nCab Name:\t" + ddlCabType.SelectedItem.ToString() +
-            "\nCharge:\t\t" + txtPrice.Text + "";
+            "\nCharge:\t\t" + txtPrice.Text + "\nThank You,\nHave A Nice Journey";
         using (MailMessage mm = new MailMessage(senderEmailId, receiversEmailId))
         {
             mm.Subject = subject;
@@ -235,5 +246,17 @@ public partial class BookCabPage : System.Web.UI.Page
        //     smtp.Send(mm);
        //     ClientScript.RegisterStartupScript(GetType(), "alert", "alert('Email sent.');", true);
        // }
+    }
+    protected void btnLogOut_Click(object sender, EventArgs e)
+    {
+        if (Session["UserEmail"] != "")
+        {
+            Session.Clear();
+            Response.Redirect("SignInMain.aspx");
+        }
+        else
+        {
+            MessageBox.Show("Opps!You Not Sign In");
+        }
     }
 }

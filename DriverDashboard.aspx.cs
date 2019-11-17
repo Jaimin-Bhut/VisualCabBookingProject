@@ -11,17 +11,26 @@ using System.Configuration;
 public partial class DriverDashboard : System.Web.UI.Page
 {
     SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+    string driverEmail;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            disp();
+            if (Page.Session["DriverEmail"] == null)
+            {
+                Response.Redirect("DriverSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                disp();
+            }
         }
+        
     }
     void disp()
     {
-        string driverEmail=Session["DriverEmail"].ToString();
+        driverEmail = Session["DriverEmail"].ToString();
         con.Open();
         SqlCommand cmd = new SqlCommand("Select b.*,d.Driver_Email from tblBooking b,tblDriver d where d.Driver_Email='"+driverEmail+"' and b.Cab=d.Cab_Id", con);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -53,14 +62,21 @@ public partial class DriverDashboard : System.Web.UI.Page
     {
         Label id = gvData.Rows[e.RowIndex].FindControl("gvlblBookingid") as Label;
         int UpdateId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
         DropDownList ddlStatus = gvData.Rows[e.RowIndex].FindControl("gvddlStatus") as DropDownList;
         con.Open();
         SqlCommand cmd = new SqlCommand("update tblBooking set Status='"+ddlStatus.SelectedValue.ToString().ToUpper()+"' where Booking_id='"+UpdateId+"'", con);
-        Response.Write(cmd.CommandText);
         cmd.ExecuteNonQuery();
-        disp();
         con.Close();
         gvData.EditIndex = -1;
+        disp();
+
+    }
+    protected void btnLogOut_Click(object sender, EventArgs e)
+    {
+        if (Session["DriverEmail"] != "")
+        {
+            Session.Clear();
+            Response.Redirect("SignInMain.aspx");
+        }
     }
 }

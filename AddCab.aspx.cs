@@ -23,21 +23,28 @@ public partial class AddCab : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlCommand cmd = new SqlCommand("select * from tblCity ", con);
-            SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            Adpt.Fill(dt);
-            ddlCity.DataSource = dt;
-            ddlCity.DataBind();
-            ddlCity.DataTextField = "City";
-            ddlCity.DataValueField = "Id";
-            ddlCity.DataBind();
-            ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
-            disp();
-            //txtCabName.Text = "";
-            //txtCabNo.Text = "";
-            //txtLuggCapacity.Text = "";
-            //txtPerCapacity.Text = "";
+            if (Page.Session["email"] == null)
+            {
+                Response.Redirect("AdminSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("select * from tblCity ", con);
+                SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                Adpt.Fill(dt);
+                ddlCity.DataSource = dt;
+                ddlCity.DataBind();
+                ddlCity.DataTextField = "City";
+                ddlCity.DataValueField = "Id";
+                ddlCity.DataBind();
+                ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+                disp();
+                //txtCabName.Text = "";
+                //txtCabNo.Text = "";
+                //txtLuggCapacity.Text = "";
+                //txtPerCapacity.Text = "";
+            }
         }
 
     }

@@ -12,6 +12,8 @@ using System.Windows.Forms;
 
 public partial class UserSignUp : System.Web.UI.Page
 {
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+
     //protected void Page_PreInit(object sender, EventArgs e)
     //{
     //    this.MasterPageFile = "~/MasterPage1.master";
@@ -20,7 +22,6 @@ public partial class UserSignUp : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
             SqlCommand cmd = new SqlCommand("select * from tblCity ", con);
             SqlDataAdapter Adpt = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -29,18 +30,24 @@ public partial class UserSignUp : System.Web.UI.Page
             ddlCity.DataTextField = "City";
             ddlCity.DataValueField = "Id";
             ddlCity.DataBind();
-            ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+            ddlCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
 
         }
-       
+
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        try
+
+        con.Open();
+        SqlCommand cmd = new SqlCommand("select count(*) from tblUserSignUp where Email ='" + txtEmail.Text + "'", con);
+        int c1 = Int32.Parse(cmd.ExecuteScalar().ToString());
+        if (c1 == 1)
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-            con.Open();
-            SqlCommand cmd = new SqlCommand("insert into tblUserSignUp  values(@name,@add,@city,@contact,@email,@pass)", con);
+            lblMessage.Text = "Email is Already Exist";
+        }
+        else
+        {
+            SqlCommand cmd1 = new SqlCommand("insert into tblUserSignUp values(@name,@add,@city,@contact,@email,@pass)", con);
             cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = txtName.Text.Trim().ToUpper();
             cmd.Parameters.Add("@add", SqlDbType.NVarChar).Value = txtAddress.Text.Trim().ToUpper();
             cmd.Parameters.Add("@city", SqlDbType.Int).Value = ddlCity.SelectedValue;
@@ -50,9 +57,6 @@ public partial class UserSignUp : System.Web.UI.Page
             cmd.ExecuteNonQuery();
             Response.Redirect("UserSignIn.aspx");
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.ToString());
-        }
+        con.Close();
     }
 }

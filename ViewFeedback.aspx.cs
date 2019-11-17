@@ -14,15 +14,22 @@ public partial class ViewBill : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
+        if (!IsPostBack)
         {
-            SqlCommand cmd = new SqlCommand("Select *from tblFeedback", con);
-            SqlDataAdapter Adp = new SqlDataAdapter(cmd);
-            DataTable Dt = new DataTable();
-            Adp.Fill(Dt);
-            gvData.DataSource = Dt;
-            gvData.DataBind();
-            con.Close();
+            if (Page.Session["email"] == null)
+            {
+                Response.Redirect("AdminSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("Select *from tblFeedback", con);
+                SqlDataAdapter Adp = new SqlDataAdapter(cmd);
+                DataTable Dt = new DataTable();
+                Adp.Fill(Dt);
+                gvData.DataSource = Dt;
+                gvData.DataBind();
+                con.Close();
+            }
         }
     }
 }

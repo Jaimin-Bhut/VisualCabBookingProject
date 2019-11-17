@@ -7,9 +7,9 @@
     <br />
     <link href="Css/Style.css" rel="stylesheet" />
     <div class="login-box">
-        <%--<asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>--%>
+            <ContentTemplate>
                 <center> <asp:Label ID="lblHeading" Text="ADD AREA" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></center>
                 <br />
                 <center><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></center>
@@ -25,7 +25,7 @@
                             <asp:RequiredFieldValidator ID="fieldValidationState" ValidationGroup="aa"
                                 runat="server"
                                 ControlToValidate="ddlState"
-                                ErrorMessage="Select State">
+                                ErrorMessage="Select State" InitialValue="-1">
                             </asp:RequiredFieldValidator>
                         </td>
                     </tr>
@@ -36,7 +36,7 @@
                         <td>
                             <asp:DropDownList ID="ddlCity" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCity_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rValidationCity" ValidationGroup="aa" runat="server" ControlToValidate="ddlCity" ErrorMessage="Select City"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rValidationCity" ValidationGroup="aa" runat="server" ControlToValidate="ddlCity" ErrorMessage="Select City" InitialValue="-1"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
@@ -64,8 +64,8 @@
                 <br />
                 <br />
                 <asp:Button ID="btnAddArea" runat="server" ValidationGroup="aa" Text="Add Area" OnClick="btnAddArea_Click" />
-       <%--     </ContentTemplate>
-        </asp:UpdatePanel>--%>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <asp:GridView ID="gvData" DataKeyNames="Id" runat="server" AutoGenerateColumns="False" OnRowDataBound="gvData_RowDataBound" OnRowCancelingEdit="gvData_RowCancelingEdit" OnRowDeleting="gvData_RowDeleting" OnRowEditing="gvData_RowEditing" OnRowUpdating="gvData_RowUpdating">
             <Columns>
                 <asp:TemplateField HeaderText="Id" Visible="false">

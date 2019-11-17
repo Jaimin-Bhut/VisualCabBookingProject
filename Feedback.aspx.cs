@@ -20,19 +20,22 @@ public partial class Feedback : System.Web.UI.Page
             Response.Redirect("UserSignIn.aspx?is=loginmust");
 
         }
-        con.Open();
-        SqlCommand com = new SqlCommand();
-        com.Connection = con;
-        com.CommandText = "select * from tblUserSignUp where Email='" + Page.Session["UserEmail"].ToString() + "'";
-        SqlDataReader dr;
-        dr = com.ExecuteReader();
-
-        if (dr.Read())
+        else
         {
-            txtUserName.Text = dr["Name"].ToString();
-            txtUserEmail.Text = dr["Email"].ToString();
+            con.Open();
+            SqlCommand com = new SqlCommand();
+            com.Connection = con;
+            com.CommandText = "select * from tblUserSignUp where Email='" + Page.Session["UserEmail"].ToString() + "'";
+            SqlDataReader dr;
+            dr = com.ExecuteReader();
+
+            if (dr.Read())
+            {
+                txtUserName.Text = dr["Name"].ToString();
+                txtUserEmail.Text = dr["Email"].ToString();
+            }
+            con.Close();
         }
-        con.Close();
     }
     protected void btnsubmit_Click(object sender, EventArgs e)
     {
@@ -44,6 +47,18 @@ public partial class Feedback : System.Web.UI.Page
         cmd.Parameters.AddWithValue("f_feedback", txtUserFeedback.Text);
         cmd.ExecuteNonQuery();
         con.Close();
+    }
+    protected void btnLogOut_Click(object sender, EventArgs e)
+    {
+        if (Session["UserEmail"] != "")
+        {
+            Session.Clear();
+            Response.Redirect("SignInMain.aspx");
+        }
+        else
+        {
+            MessageBox.Show("Opps!You Not Sign In");
+        }
     }
 }
 

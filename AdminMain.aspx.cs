@@ -11,11 +11,14 @@ public partial class AdminMain : System.Web.UI.Page
 {
     protected void Page_PreInit(object sender, EventArgs e)
     {
-       // this.MasterPageFile = "~/MasterPage1.master";
+        this.MasterPageFile = "~/MasterPage1.master";
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Page.Session["email"] == null)
+        {
+            Response.Redirect("AdminSignIn.aspx?is=loginmust");
+        }
     }
     protected void imgbtnAddArea_Click(object sender, ImageClickEventArgs e)
     {
@@ -37,13 +40,7 @@ public partial class AdminMain : System.Web.UI.Page
     {
         Response.Redirect("AddCab.aspx");
     }
-    protected void imgbtnAssignCab_Click(object sender, ImageClickEventArgs e)
-    {
-
-    }
-    protected void imgbtnViewBill_Click(object sender, ImageClickEventArgs e)
-    {
-    }
+   
     protected void imgbtnAddCharges_Click(object sender, ImageClickEventArgs e)
     {
         Response.Redirect("AddCharges.aspx");
@@ -53,7 +50,6 @@ public partial class AdminMain : System.Web.UI.Page
         DialogResult result = MessageBox.Show("Are You Sure You Want to Sign-Out", "Yes or No", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);      
             if (result == DialogResult.Yes)
             {
-                    MessageBox.Show("Sign-Out Succesfully:-" + Session["email"].ToString());
                     Session.Clear();
                     Response.Redirect("SignInMain.aspx");
             }

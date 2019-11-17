@@ -32,7 +32,14 @@ public partial class AddLocatality : System.Web.UI.Page
     {
       if (!IsPostBack)
         {
-            disp();
+            if (Page.Session["email"] == null)
+            {
+                Response.Redirect("AdminSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                disp();
+            }
         }
     }
     protected void btnAddState_Click(object sender, EventArgs e)
@@ -69,13 +76,20 @@ public partial class AddLocatality : System.Web.UI.Page
     }
     protected void gvData_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {
-        int delId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
-        con.Open();
-        SqlCommand cmd = new SqlCommand("delete from tblState Where Id=" + delId, con);
-        cmd.ExecuteNonQuery();
-        con.Close();
-        disp();
+        try
+        {
+            int delId = Convert.ToInt32(gvData.DataKeys[e.RowIndex].Value.ToString());
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conString"].ToString());
+            con.Open();
+            SqlCommand cmd = new SqlCommand("delete from tblState Where Id=" + delId, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            disp();
+        }
+        catch (Exception ex)
+        {
+            lblMessage.Text="Delete is not postible";
+        }
 
     } 
     protected void gvData_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)

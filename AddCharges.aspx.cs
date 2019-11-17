@@ -14,11 +14,18 @@ public partial class AddCharges : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (IsPostBack)
-        //{
-            city();
-            disp();
-       // }
+        if (IsPostBack)
+        {
+            if (Page.Session["email"] == null)
+            {
+                Response.Redirect("AdminSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                city();
+                disp();
+            }
+       }
     }
     void city()
     {

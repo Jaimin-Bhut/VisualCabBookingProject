@@ -19,9 +19,8 @@
         <asp:HyperLink ID="linkAddCab" runat="server" NavigateUrl="~/AddCab.aspx">ADD CAB</asp:HyperLink>
         <asp:HyperLink ID="linkAddDriver" runat="server" NavigateUrl="~/AddDriver.aspx">ADD DRIVER</asp:HyperLink>
         <asp:HyperLink ID="linkAddCharges" runat="server" NavigateUrl="~/AddCharges.aspx">ADD CHARGES</asp:HyperLink>
-        <asp:HyperLink ID="linkViewBill" runat="server" NavigateUrl="~/ViewBill.aspx">VIEW BILL</asp:HyperLink>
         <asp:HyperLink ID="linkFeedback" runat="server" NavigateUrl="~/ViewFeedback.aspx">FEEDBACK</asp:HyperLink>
-        <asp:HyperLink ID="linkSignOut" runat="server">SIGN-OUT</asp:HyperLink>
+        <asp:Button ID="btnSignOut" runat="server" Text="SIGN OUT" CssClass="button"  OnClick="btnSignOut_Click1"/>
     </div>
     <div class="main">            
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">

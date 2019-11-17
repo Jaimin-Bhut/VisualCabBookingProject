@@ -5,9 +5,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <link href="Css/Style.css" rel="stylesheet" />
     <div class="login-box">
+        <center> <h1><asp:Label ID="lblHeading" Text="USER SIGN UP" runat="server" Font-Bold="true" Font-Underline="true" Font-Size="X-Large"></asp:Label></h1></center>
         <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
+                        <center><asp:Label ID="lblMessage" runat="server" Text=""></asp:Label></center>
+
 
                 <table class="auto-style1">
                     <tr>
@@ -18,6 +21,7 @@
                             <asp:RequiredFieldValidator
                                 ID="ValidationName"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtName"
                                 ErrorMessage="* Enter Name" />
                             <asp:RegularExpressionValidator
@@ -27,20 +31,21 @@
                                 ControlToValidate="txtName"
                                 ValidationExpression="^[A-Za-z]*$" />
 
-
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <asp:Label ID="lblAddress" runat="server" Text="Address"></asp:Label></td>
                         <td>
-                            <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox></td>
+                            <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox>
                         <asp:RequiredFieldValidator
                             ID="validationAddress"
                             runat="server"
+                            ValidationGroup="aa"
                             ControlToValidate="txtAddress"
                             ErrorMessage="* Enter Address">
                         </asp:RequiredFieldValidator>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -51,7 +56,9 @@
                             <asp:RequiredFieldValidator
                                 ID="validationCity"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="ddlCity"
+                                InitialValue="-1"
                                 ErrorMessage="* Select City">
                             </asp:RequiredFieldValidator>
                         </td>
@@ -65,6 +72,7 @@
                             <asp:RequiredFieldValidator
                                 ID="validationContactNumber"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtContactNo"
                                 ErrorMessage="* Enter Contact Number" />
                             <asp:RegularExpressionValidator
@@ -82,19 +90,21 @@
                             <asp:Label ID="lblEmail" runat="server" Text="Email"></asp:Label></td>
 
                         <td>
-                            <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox></td>
-                        <asp:RequiredFieldValidator
-                            ID="validationEmail"
-                            runat="server"
-                            ControlToValidate="txtEmail"
-                            ErrorMessage="* Enter Email" />
-                        <asp:RegularExpressionValidator
-                            ID="rvalidationEmail"
-                            runat="server"
-                            ErrorMessage="Only characters allowed"
-                            ControlToValidate="txtEmail"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
-                        </asp:RegularExpressionValidator>
+                            <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator
+                                ID="validationEmail"
+                                runat="server"
+                                ValidationGroup="aa"
+                                ControlToValidate="txtEmail"
+                                ErrorMessage="* Enter Email" />
+                            <asp:RegularExpressionValidator
+                                ID="rvalidationEmail"
+                                runat="server"
+                                ErrorMessage="Enter Valid Email"
+                                ControlToValidate="txtEmail"
+                                ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                            </asp:RegularExpressionValidator>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -105,6 +115,7 @@
                             <asp:RequiredFieldValidator
                                 ID="validationPassword"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtPassword"
                                 ErrorMessage="* Enter Password">
                             </asp:RequiredFieldValidator>
@@ -119,6 +130,7 @@
                             <asp:RequiredFieldValidator
                                 ID="validationCPassword"
                                 runat="server"
+                                ValidationGroup="aa"
                                 ControlToValidate="txtCPassword"
                                 ErrorMessage="* Enter Password" />
                             <asp:CompareValidator ID="comparePasswords"
@@ -133,7 +145,7 @@
 
                     <tr>
                         <td>
-                            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+                            <asp:Button ID="btnSubmit" ValidationGroup="aa" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
                         </td>
                     </tr>
                 </table>

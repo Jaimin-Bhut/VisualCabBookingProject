@@ -22,19 +22,26 @@ public partial class AddArea : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            string com = "Select * from tblState";
-            SqlDataAdapter adpt = new SqlDataAdapter(com, con);
-            DataTable dt = new DataTable();
-            adpt.Fill(dt);
-            ddlState.DataSource = dt;
-            ddlState.DataBind();
-            ddlState.DataTextField = "State";
-            ddlState.DataValueField = "Id";
-            ddlState.DataBind();
-            ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
-            ddlState.Items[0].Selected = true;
-            ddlState.Items[0].Attributes["disabled"] = "disabled";
-            disp();
+            if (Page.Session["email"] == null)
+            {
+                Response.Redirect("AdminSignIn.aspx?is=loginmust");
+            }
+            else
+            {
+                string com = "Select * from tblState";
+                SqlDataAdapter adpt = new SqlDataAdapter(com, con);
+                DataTable dt = new DataTable();
+                adpt.Fill(dt);
+                ddlState.DataSource = dt;
+                ddlState.DataBind();
+                ddlState.DataTextField = "State";
+                ddlState.DataValueField = "Id";
+                ddlState.DataBind();
+                ddlState.Items.Insert(0, new ListItem("--Select State--", "-1"));
+                ddlState.Items[0].Selected = true;
+                ddlState.Items[0].Attributes["disabled"] = "disabled";
+                disp();
+            }
         }
     }
     void disp()
@@ -59,7 +66,7 @@ public partial class AddArea : System.Web.UI.Page
         ddlCity.DataTextField = "City";
         ddlCity.DataValueField = "Id";
         ddlCity.DataBind();
-        ddlCity.Items.Insert(0, new ListItem("--Select City--", "0"));
+        ddlCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
         ddlCity.Items[0].Selected = true;
         ddlCity.Items[0].Attributes["disabled"] = "disabled";
         disp();

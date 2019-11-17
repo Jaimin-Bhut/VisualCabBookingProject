@@ -24,9 +24,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
             {
                 if (Session["email"] != "")
                 {
-                    MessageBox.Show("Sign-Out Succesfully:-" + Session["email"].ToString());
                     Session.Clear();
-                    Response.Redirect("Home.aspx");
+                    Response.Redirect("SignInMain.aspx");
                 }
                 else
                 {
@@ -37,6 +36,30 @@ public partial class MasterPage : System.Web.UI.MasterPage
         catch (Exception ex)
         {
             MessageBox.Show(ex.ToString());
+        }
+
+    }
+    protected void btnSignOut_Click1(object sender, EventArgs e)
+    {
+        DialogResult result = MessageBox.Show("Are You Sure You Want to Sign-Out", "Yes or No", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+        try
+        {
+            if (result == DialogResult.Yes)
+            {
+                if (Session["email"] != "")
+                {
+                    Session.Clear();
+                    Response.Redirect("SignInMain.aspx");
+                }
+                else
+                {
+                    MessageBox.Show("Opps!You Not Sign In");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.Write("");
         }
 
     }
